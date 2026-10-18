@@ -1,0 +1,873 @@
+{
+  "version": 1,
+  "categorias_almuerzo": [
+    { "id": "legumbres", "nombre": "Legumbres", "limite_semanal": null },
+    { "id": "pescados_mariscos_algas", "nombre": "Pescados, mariscos y algas", "limite_semanal": null },
+    { "id": "carne_roja", "nombre": "Carne roja", "limite_semanal": null },
+    { "id": "ave", "nombre": "Ave", "limite_semanal": null },
+    { "id": "pastas", "nombre": "Pastas", "limite_semanal": null },
+    { "id": "vegetariano", "nombre": "Vegetariano", "limite_semanal": null }
+  ],
+  "ingredientes": [
+    { "id": "aceite", "nombre": "aceite", "pasillo": "abarrotes_despensa", "basico_despensa": true, "gramos_por_cucharada": 14 },
+    { "id": "sal", "nombre": "sal", "pasillo": "abarrotes_despensa", "basico_despensa": true },
+    { "id": "pimienta", "nombre": "pimienta", "pasillo": "abarrotes_despensa", "basico_despensa": true },
+    { "id": "comino", "nombre": "comino", "pasillo": "abarrotes_despensa", "basico_despensa": true },
+    { "id": "oregano", "nombre": "orégano", "pasillo": "abarrotes_despensa", "basico_despensa": true },
+    { "id": "paprika", "nombre": "paprika", "pasillo": "abarrotes_despensa", "basico_despensa": true },
+    { "id": "merken", "nombre": "merkén", "pasillo": "abarrotes_despensa", "basico_despensa": true },
+    { "id": "nuez_moscada", "nombre": "nuez moscada", "pasillo": "abarrotes_despensa", "basico_despensa": true },
+    { "id": "vinagre", "nombre": "vinagre", "pasillo": "abarrotes_despensa", "basico_despensa": true, "gramos_por_cucharada": 15 },
+
+    { "id": "lentejas", "nombre": "lentejas", "pasillo": "abarrotes_despensa", "grupo": "legumbre" },
+    { "id": "porotos", "nombre": "porotos tórtola", "pasillo": "abarrotes_despensa", "grupo": "legumbre" },
+    { "id": "porotos_negros", "nombre": "porotos negros", "pasillo": "abarrotes_despensa", "grupo": "legumbre" },
+    { "id": "garbanzos", "nombre": "garbanzos", "pasillo": "abarrotes_despensa", "grupo": "legumbre" },
+    { "id": "porotos_granados", "nombre": "porotos granados", "pasillo": "frutas_y_verduras", "grupo": "legumbre" },
+
+    { "id": "arroz", "nombre": "arroz", "pasillo": "abarrotes_despensa" },
+    { "id": "arroz_arborio", "nombre": "arroz arborio", "pasillo": "abarrotes_despensa" },
+    { "id": "quinoa", "nombre": "quínoa", "pasillo": "abarrotes_despensa" },
+    { "id": "tallarines", "nombre": "tallarines", "pasillo": "abarrotes_despensa" },
+    { "id": "laminas_lasana", "nombre": "láminas de lasaña", "pasillo": "abarrotes_despensa" },
+    { "id": "harina", "nombre": "harina", "pasillo": "abarrotes_despensa", "gramos_por_cucharada": 8 },
+    { "id": "pan_rallado", "nombre": "pan rallado", "pasillo": "abarrotes_despensa", "gramos_por_cucharada": 7 },
+    { "id": "azucar", "nombre": "azúcar", "pasillo": "abarrotes_despensa", "gramos_por_cucharada": 12 },
+    { "id": "salsa_de_tomate", "nombre": "salsa de tomate", "pasillo": "abarrotes_despensa", "unidad": { "singular": "sachet de salsa de tomate", "plural": "sachets de salsa de tomate", "gramos": 200 } },
+    { "id": "salsa_soya", "nombre": "salsa de soya", "pasillo": "abarrotes_despensa", "gramos_por_cucharada": 15 },
+    { "id": "aceitunas", "nombre": "aceitunas", "pasillo": "abarrotes_despensa" },
+    { "id": "caldo_verduras", "nombre": "caldo de verduras en cubo", "pasillo": "abarrotes_despensa", "unidad": { "singular": "cubo de caldo", "plural": "cubos de caldo", "gramos": 10 } },
+    { "id": "nueces", "nombre": "nueces", "pasillo": "abarrotes_despensa" },
+    { "id": "atun_lata", "nombre": "atún en lata", "pasillo": "abarrotes_despensa", "grupo": "pescado_marisco", "unidad": { "singular": "lata de atún", "plural": "latas de atún", "gramos": 120 } },
+    { "id": "cochayuyo", "nombre": "cochayuyo", "pasillo": "abarrotes_despensa", "grupo": "alga" },
+
+    { "id": "tomate", "nombre": "tomate", "pasillo": "frutas_y_verduras", "unidad": { "singular": "tomate mediano", "plural": "tomates medianos", "gramos": 100 } },
+    { "id": "tomate_cherry", "nombre": "tomate cherry", "pasillo": "frutas_y_verduras" },
+    { "id": "cebolla", "nombre": "cebolla", "pasillo": "frutas_y_verduras", "unidad": { "singular": "cebolla mediana", "plural": "cebollas medianas", "gramos": 150 } },
+    { "id": "cebolla_morada", "nombre": "cebolla morada", "pasillo": "frutas_y_verduras", "unidad": { "singular": "cebolla morada mediana", "plural": "cebollas moradas medianas", "gramos": 150 } },
+    { "id": "ajo", "nombre": "ajo", "pasillo": "frutas_y_verduras", "unidad": { "singular": "diente de ajo", "plural": "dientes de ajo", "gramos": 5 } },
+    { "id": "zanahoria", "nombre": "zanahoria", "pasillo": "frutas_y_verduras", "unidad": { "singular": "zanahoria mediana", "plural": "zanahorias medianas", "gramos": 80 } },
+    { "id": "pimenton_rojo", "nombre": "pimentón rojo", "pasillo": "frutas_y_verduras", "unidad": { "singular": "pimentón", "plural": "pimentones", "gramos": 200 } },
+    { "id": "zapallo", "nombre": "zapallo", "pasillo": "frutas_y_verduras" },
+    { "id": "zapallo_italiano", "nombre": "zapallo italiano", "pasillo": "frutas_y_verduras", "unidad": { "singular": "zapallo italiano", "plural": "zapallos italianos", "gramos": 200 } },
+    { "id": "choclo", "nombre": "choclo desgranado", "pasillo": "frutas_y_verduras", "unidad": { "singular": "choclo", "plural": "choclos", "gramos": 150 } },
+    { "id": "papa", "nombre": "papa", "pasillo": "frutas_y_verduras", "unidad": { "singular": "papa mediana", "plural": "papas medianas", "gramos": 150 } },
+    { "id": "brocoli", "nombre": "brócoli", "pasillo": "frutas_y_verduras", "unidad": { "singular": "brócoli", "plural": "brócolis", "gramos": 400 } },
+    { "id": "espinaca", "nombre": "espinaca", "pasillo": "frutas_y_verduras" },
+    { "id": "acelga", "nombre": "acelga", "pasillo": "frutas_y_verduras", "unidad": { "singular": "atado de acelga", "plural": "atados de acelga", "gramos": 500 } },
+    { "id": "champinones", "nombre": "champiñones", "pasillo": "frutas_y_verduras", "unidad": { "singular": "bandeja de champiñones", "plural": "bandejas de champiñones", "gramos": 200 } },
+    { "id": "porotos_verdes", "nombre": "porotos verdes", "pasillo": "frutas_y_verduras" },
+    { "id": "lechuga", "nombre": "lechuga", "pasillo": "frutas_y_verduras", "unidad": { "singular": "lechuga", "plural": "lechugas", "gramos": 400 } },
+    { "id": "pepino", "nombre": "pepino", "pasillo": "frutas_y_verduras", "unidad": { "singular": "pepino", "plural": "pepinos", "gramos": 300 } },
+    { "id": "palta", "nombre": "palta", "pasillo": "frutas_y_verduras", "unidad": { "singular": "palta", "plural": "paltas", "gramos": 150 } },
+    { "id": "betarraga", "nombre": "betarraga", "pasillo": "frutas_y_verduras", "unidad": { "singular": "betarraga", "plural": "betarragas", "gramos": 150 } },
+    { "id": "repollo", "nombre": "repollo", "pasillo": "frutas_y_verduras" },
+    { "id": "apio", "nombre": "apio", "pasillo": "frutas_y_verduras" },
+    { "id": "rucula", "nombre": "rúcula", "pasillo": "frutas_y_verduras" },
+    { "id": "pera", "nombre": "pera", "pasillo": "frutas_y_verduras", "unidad": { "singular": "pera", "plural": "peras", "gramos": 180 } },
+    { "id": "limon", "nombre": "limón", "pasillo": "frutas_y_verduras", "unidad": { "singular": "limón", "plural": "limones", "gramos": 100 } },
+    { "id": "cilantro", "nombre": "cilantro", "pasillo": "frutas_y_verduras" },
+    { "id": "perejil", "nombre": "perejil", "pasillo": "frutas_y_verduras" },
+    { "id": "albahaca", "nombre": "albahaca", "pasillo": "frutas_y_verduras" },
+    { "id": "eneldo", "nombre": "eneldo", "pasillo": "frutas_y_verduras" },
+    { "id": "menta", "nombre": "menta", "pasillo": "frutas_y_verduras" },
+    { "id": "arvejas", "nombre": "arvejas congeladas", "pasillo": "alimentos_congelados" },
+
+    { "id": "reineta", "nombre": "reineta", "pasillo": "pescados_y_mariscos", "grupo": "pescado_marisco" },
+    { "id": "salmon", "nombre": "salmón", "pasillo": "pescados_y_mariscos", "grupo": "pescado_marisco" },
+    { "id": "merluza", "nombre": "merluza", "pasillo": "pescados_y_mariscos", "grupo": "pescado_marisco" },
+
+    { "id": "posta_vacuno", "nombre": "posta de vacuno", "pasillo": "carnes_y_aves", "grupo": "carne" },
+    { "id": "carne_molida", "nombre": "carne molida", "pasillo": "carnes_y_aves", "grupo": "carne" },
+    { "id": "lomo_vacuno", "nombre": "lomo de vacuno", "pasillo": "carnes_y_aves", "grupo": "carne" },
+    { "id": "costillar_cerdo", "nombre": "costillar de cerdo", "pasillo": "carnes_y_aves", "grupo": "carne" },
+    { "id": "trutro_pollo", "nombre": "trutro de pollo", "pasillo": "carnes_y_aves", "grupo": "carne" },
+    { "id": "pechuga_pollo", "nombre": "pechuga de pollo", "pasillo": "carnes_y_aves", "grupo": "carne" },
+
+    { "id": "leche", "nombre": "leche", "pasillo": "lacteos_y_huevos" },
+    { "id": "mantequilla", "nombre": "mantequilla", "pasillo": "lacteos_y_huevos", "gramos_por_cucharada": 14 },
+    { "id": "huevo", "nombre": "huevo", "pasillo": "lacteos_y_huevos", "unidad": { "singular": "huevo", "plural": "huevos", "gramos": 50 } },
+    { "id": "queso_parmesano", "nombre": "queso parmesano", "pasillo": "lacteos_y_huevos" },
+    { "id": "queso_mantecoso", "nombre": "queso mantecoso", "pasillo": "lacteos_y_huevos" },
+    { "id": "yogur_natural", "nombre": "yogur natural", "pasillo": "lacteos_y_huevos", "unidad": { "singular": "pote de yogur", "plural": "potes de yogur", "gramos": 125 } },
+
+    { "id": "tofu_firme", "nombre": "tofu firme", "pasillo": "dieteticos_y_especiales", "grupo": "sustituto_carne" },
+    { "id": "seitan", "nombre": "seitán", "pasillo": "dieteticos_y_especiales", "grupo": "sustituto_carne" },
+    { "id": "soya_texturizada", "nombre": "soya texturizada", "pasillo": "dieteticos_y_especiales", "grupo": "sustituto_carne" },
+    { "id": "hamburguesa_vegetal", "nombre": "hamburguesa vegetal", "pasillo": "alimentos_congelados", "grupo": "sustituto_carne", "unidad": { "singular": "hamburguesa vegetal", "plural": "hamburguesas vegetales", "gramos": 100 } }
+  ],
+  "sustitutos_carne": [
+    { "ingrediente": "tofu_firme", "gramos_por_porcion": 120 },
+    { "ingrediente": "seitan", "gramos_por_porcion": 120 },
+    { "ingrediente": "soya_texturizada", "gramos_por_porcion": 40 },
+    { "ingrediente": "hamburguesa_vegetal", "gramos_por_porcion": 100 }
+  ],
+  "almuerzos": [
+    {
+      "id": "lentejas_guisadas",
+      "nombre": "Lentejas guisadas con arroz",
+      "categoria": "legumbres",
+      "dificultad": "baja",
+      "tiempo_minutos": 50,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "lentejas", "cantidad": 80, "unidad": "g" },
+        { "ingrediente": "arroz", "cantidad": 30, "unidad": "g" },
+        { "ingrediente": "zanahoria", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "cebolla", "cantidad": 50, "unidad": "g" },
+        { "ingrediente": "pimenton_rojo", "cantidad": 30, "unidad": "g" },
+        { "ingrediente": "ajo", "cantidad": 5, "unidad": "g" },
+        { "ingrediente": "aceite", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "comino", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Lavar las lentejas y dejarlas en remojo al menos 2 horas.",
+        "Picar la cebolla, el ajo y el pimentón en cubos pequeños y rallar la zanahoria.",
+        "Sofreír la cebolla, el ajo y el pimentón en aceite hasta que estén transparentes; agregar comino y sal.",
+        "Agregar las lentejas escurridas, la zanahoria y agua hasta cubrir con dos dedos de exceso.",
+        "Cocinar a fuego medio unos 30 minutos; agregar el arroz y cocinar 15 minutos más, revolviendo de vez en cuando."
+      ]
+    },
+    {
+      "id": "porotos_granados",
+      "nombre": "Porotos granados",
+      "categoria": "legumbres",
+      "dificultad": "media",
+      "tiempo_minutos": 60,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "porotos_granados", "cantidad": 150, "unidad": "g" },
+        { "ingrediente": "zapallo", "cantidad": 100, "unidad": "g" },
+        { "ingrediente": "choclo", "cantidad": 80, "unidad": "g" },
+        { "ingrediente": "cebolla", "cantidad": 50, "unidad": "g" },
+        { "ingrediente": "ajo", "cantidad": 5, "unidad": "g" },
+        { "ingrediente": "albahaca", "opcional": true },
+        { "ingrediente": "aceite", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "paprika", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Picar la cebolla y el ajo; pelar el zapallo y cortarlo en cubos.",
+        "Sofreír la cebolla y el ajo en aceite con paprika.",
+        "Agregar los porotos granados, el zapallo y agua hasta cubrir; cocinar 35 minutos a fuego medio.",
+        "Moler el choclo y agregarlo a la olla; cocinar 10 minutos revolviendo para que no se pegue.",
+        "Ajustar la sal y servir con albahaca picada."
+      ]
+    },
+    {
+      "id": "porotos_con_riendas",
+      "nombre": "Porotos con riendas",
+      "categoria": "legumbres",
+      "dificultad": "media",
+      "tiempo_minutos": 90,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "porotos", "cantidad": 80, "unidad": "g" },
+        { "ingrediente": "tallarines", "cantidad": 30, "unidad": "g" },
+        { "ingrediente": "zapallo", "cantidad": 80, "unidad": "g" },
+        { "ingrediente": "cebolla", "cantidad": 50, "unidad": "g" },
+        { "ingrediente": "ajo", "cantidad": 5, "unidad": "g" },
+        { "ingrediente": "aceite", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "paprika", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Dejar los porotos en remojo la noche anterior.",
+        "Cocinar los porotos en agua sin sal unos 60 minutos, hasta que estén blandos.",
+        "Sofreír la cebolla y el ajo picados en aceite con paprika; agregar el zapallo en cubos.",
+        "Incorporar el sofrito a los porotos y cocinar 10 minutos.",
+        "Agregar los tallarines quebrados y cocinar hasta que estén al dente; ajustar la sal."
+      ]
+    },
+    {
+      "id": "garbanzos_espinaca",
+      "nombre": "Garbanzos guisados con espinaca",
+      "categoria": "legumbres",
+      "dificultad": "baja",
+      "tiempo_minutos": 45,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "garbanzos", "cantidad": 80, "unidad": "g" },
+        { "ingrediente": "espinaca", "cantidad": 80, "unidad": "g" },
+        { "ingrediente": "cebolla", "cantidad": 50, "unidad": "g" },
+        { "ingrediente": "ajo", "cantidad": 5, "unidad": "g" },
+        { "ingrediente": "aceite", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "comino", "opcional": true },
+        { "ingrediente": "paprika", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Dejar los garbanzos en remojo la noche anterior y cocinarlos 40 minutos en olla a presión.",
+        "Sofreír la cebolla y el ajo picados en aceite con comino y paprika.",
+        "Agregar los garbanzos cocidos con un poco de su caldo y cocinar 10 minutos.",
+        "Incorporar la espinaca lavada y picada; cocinar hasta que se marchite y ajustar la sal."
+      ]
+    },
+    {
+      "id": "reineta_pure",
+      "nombre": "Reineta a la plancha con puré de papas",
+      "categoria": "pescados_mariscos_algas",
+      "dificultad": "baja",
+      "tiempo_minutos": 35,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "reineta", "cantidad": 180, "unidad": "g" },
+        { "ingrediente": "papa", "cantidad": 250, "unidad": "g" },
+        { "ingrediente": "leche", "cantidad": 60, "unidad": "g" },
+        { "ingrediente": "mantequilla", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "limon", "cantidad": 25, "unidad": "g" },
+        { "ingrediente": "aceite", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Pelar las papas, cortarlas en trozos y cocerlas en agua con sal hasta que estén blandas.",
+        "Moler las papas con la mantequilla y la leche caliente hasta obtener un puré suave.",
+        "Salar la reineta y cocinarla en una sartén con aceite, 3 a 4 minutos por lado.",
+        "Servir el pescado con jugo de limón y el puré al lado."
+      ]
+    },
+    {
+      "id": "salmon_horno",
+      "nombre": "Salmón al horno con arroz y brócoli",
+      "categoria": "pescados_mariscos_algas",
+      "dificultad": "baja",
+      "tiempo_minutos": 35,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "salmon", "cantidad": 180, "unidad": "g" },
+        { "ingrediente": "arroz", "cantidad": 70, "unidad": "g" },
+        { "ingrediente": "brocoli", "cantidad": 120, "unidad": "g" },
+        { "ingrediente": "limon", "cantidad": 25, "unidad": "g" },
+        { "ingrediente": "ajo", "cantidad": 5, "unidad": "g" },
+        { "ingrediente": "aceite", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "pimienta", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Precalentar el horno a 200 °C.",
+        "Poner el salmón en una fuente con aceite, ajo picado, jugo de limón, sal y pimienta; hornear 15 a 18 minutos.",
+        "Cocinar el arroz en agua con sal, 2 tazas de agua por taza de arroz.",
+        "Cocer el brócoli al vapor 5 minutos y servir todo junto."
+      ]
+    },
+    {
+      "id": "merluza_papas",
+      "nombre": "Merluza frita con papas cocidas",
+      "categoria": "pescados_mariscos_algas",
+      "dificultad": "media",
+      "tiempo_minutos": 40,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "merluza", "cantidad": 180, "unidad": "g" },
+        { "ingrediente": "harina", "cantidad": 30, "unidad": "g" },
+        { "ingrediente": "huevo", "cantidad": 25, "unidad": "g" },
+        { "ingrediente": "papa", "cantidad": 250, "unidad": "g" },
+        { "ingrediente": "aceite", "cantidad": 3, "unidad": "cucharada" },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Pelar las papas y cocerlas enteras en agua con sal unos 25 minutos.",
+        "Salar los filetes de merluza, pasarlos por harina y luego por huevo batido.",
+        "Freír la merluza en aceite caliente hasta dorar por ambos lados.",
+        "Escurrir sobre papel absorbente y servir con las papas cocidas."
+      ]
+    },
+    {
+      "id": "tallarines_atun",
+      "nombre": "Tallarines con salsa de atún",
+      "categoria": "pescados_mariscos_algas",
+      "dificultad": "baja",
+      "tiempo_minutos": 25,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "tallarines", "cantidad": 100, "unidad": "g" },
+        { "ingrediente": "atun_lata", "cantidad": 80, "unidad": "g" },
+        { "ingrediente": "salsa_de_tomate", "cantidad": 100, "unidad": "g" },
+        { "ingrediente": "cebolla", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "ajo", "cantidad": 5, "unidad": "g" },
+        { "ingrediente": "aceite", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "oregano", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Cocer los tallarines en abundante agua con sal según las instrucciones del envase.",
+        "Sofreír la cebolla y el ajo picados en aceite.",
+        "Agregar la salsa de tomate y el orégano; cocinar 5 minutos.",
+        "Incorporar el atún escurrido, calentar 2 minutos y mezclar con los tallarines."
+      ]
+    },
+    {
+      "id": "charquican_cochayuyo",
+      "nombre": "Charquicán de cochayuyo",
+      "categoria": "pescados_mariscos_algas",
+      "dificultad": "media",
+      "tiempo_minutos": 60,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "cochayuyo", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "papa", "cantidad": 200, "unidad": "g" },
+        { "ingrediente": "zapallo", "cantidad": 100, "unidad": "g" },
+        { "ingrediente": "choclo", "cantidad": 50, "unidad": "g" },
+        { "ingrediente": "arvejas", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "cebolla", "cantidad": 50, "unidad": "g" },
+        { "ingrediente": "ajo", "cantidad": 5, "unidad": "g" },
+        { "ingrediente": "huevo", "cantidad": 50, "unidad": "g" },
+        { "ingrediente": "aceite", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "paprika", "opcional": true },
+        { "ingrediente": "comino", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Remojar el cochayuyo 1 hora, cocerlo 20 minutos y picarlo fino.",
+        "Sofreír la cebolla y el ajo picados en aceite con paprika y comino.",
+        "Agregar la papa y el zapallo en cubos con un poco de agua y cocinar hasta que estén blandos.",
+        "Incorporar el cochayuyo, el choclo y las arvejas; cocinar 10 minutos y moler groseramente.",
+        "Servir con un huevo frito encima."
+      ]
+    },
+    {
+      "id": "carbonada",
+      "nombre": "Carbonada",
+      "categoria": "carne_roja",
+      "dificultad": "media",
+      "tiempo_minutos": 60,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "posta_vacuno", "cantidad": 120, "unidad": "g" },
+        { "ingrediente": "papa", "cantidad": 150, "unidad": "g" },
+        { "ingrediente": "zapallo", "cantidad": 80, "unidad": "g" },
+        { "ingrediente": "zanahoria", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "choclo", "cantidad": 50, "unidad": "g" },
+        { "ingrediente": "porotos_verdes", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "cebolla", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "arroz", "cantidad": 20, "unidad": "g" },
+        { "ingrediente": "ajo", "cantidad": 5, "unidad": "g" },
+        { "ingrediente": "aceite", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "oregano", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Cortar la carne en cubos pequeños y dorarla en aceite con la cebolla y el ajo picados.",
+        "Agregar agua caliente (unos 400 ml por porción), orégano y sal; cocinar 20 minutos.",
+        "Incorporar la papa, el zapallo y la zanahoria en cubos y el arroz; cocinar 15 minutos.",
+        "Agregar el choclo y los porotos verdes picados; cocinar 5 minutos más."
+      ]
+    },
+    {
+      "id": "pastel_choclo",
+      "nombre": "Pastel de choclo",
+      "categoria": "carne_roja",
+      "dificultad": "alta",
+      "tiempo_minutos": 90,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "carne_molida", "cantidad": 120, "unidad": "g" },
+        { "ingrediente": "choclo", "cantidad": 200, "unidad": "g" },
+        { "ingrediente": "cebolla", "cantidad": 100, "unidad": "g" },
+        { "ingrediente": "huevo", "cantidad": 25, "unidad": "g" },
+        { "ingrediente": "aceitunas", "cantidad": 15, "unidad": "g" },
+        { "ingrediente": "leche", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "albahaca", "opcional": true },
+        { "ingrediente": "azucar", "opcional": true },
+        { "ingrediente": "aceite", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "comino", "opcional": true },
+        { "ingrediente": "paprika", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Preparar el pino: sofreír la cebolla picada en aceite, agregar la carne molida, comino, paprika y sal; cocinar 15 minutos.",
+        "Moler el choclo con la albahaca y cocinarlo con la leche a fuego bajo, revolviendo, hasta que espese.",
+        "Cocer el huevo 10 minutos y cortarlo en trozos.",
+        "En una fuente de greda poner el pino, el huevo y las aceitunas; cubrir con la pasta de choclo.",
+        "Espolvorear azúcar y hornear a 200 °C unos 30 minutos, hasta dorar."
+      ]
+    },
+    {
+      "id": "lomo_saltado",
+      "nombre": "Lomo saltado",
+      "categoria": "carne_roja",
+      "dificultad": "media",
+      "tiempo_minutos": 40,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "lomo_vacuno", "cantidad": 150, "unidad": "g" },
+        { "ingrediente": "papa", "cantidad": 200, "unidad": "g" },
+        { "ingrediente": "tomate", "cantidad": 100, "unidad": "g" },
+        { "ingrediente": "cebolla_morada", "cantidad": 80, "unidad": "g" },
+        { "ingrediente": "arroz", "cantidad": 70, "unidad": "g" },
+        { "ingrediente": "salsa_soya", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "ajo", "cantidad": 5, "unidad": "g" },
+        { "ingrediente": "cilantro", "opcional": true },
+        { "ingrediente": "aceite", "cantidad": 3, "unidad": "cucharada" },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Cocinar el arroz en agua con sal.",
+        "Cortar las papas en bastones y freírlas en aceite hasta dorar.",
+        "Cortar el lomo en tiras y saltearlo a fuego alto con el ajo picado.",
+        "Agregar la cebolla morada en pluma y el tomate en gajos; saltear 2 minutos y añadir la salsa de soya.",
+        "Mezclar con las papas fritas, espolvorear cilantro y servir con arroz."
+      ]
+    },
+    {
+      "id": "costillar_cerdo",
+      "nombre": "Costillar de cerdo al horno con papas",
+      "categoria": "carne_roja",
+      "dificultad": "baja",
+      "tiempo_minutos": 120,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "costillar_cerdo", "cantidad": 300, "unidad": "g" },
+        { "ingrediente": "papa", "cantidad": 250, "unidad": "g" },
+        { "ingrediente": "ajo", "cantidad": 10, "unidad": "g" },
+        { "ingrediente": "aceite", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "merken", "opcional": true },
+        { "ingrediente": "oregano", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Adobar el costillar con ajo molido, merkén, orégano, sal y aceite; dejar reposar 30 minutos.",
+        "Hornear tapado con papel aluminio a 180 °C durante 60 minutos.",
+        "Agregar las papas en cuartos alrededor, destapar y hornear 30 minutos más hasta dorar."
+      ]
+    },
+    {
+      "id": "cazuela_ave",
+      "nombre": "Cazuela de ave",
+      "categoria": "ave",
+      "dificultad": "media",
+      "tiempo_minutos": 60,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "trutro_pollo", "cantidad": 200, "unidad": "g" },
+        { "ingrediente": "papa", "cantidad": 150, "unidad": "g" },
+        { "ingrediente": "zapallo", "cantidad": 80, "unidad": "g" },
+        { "ingrediente": "choclo", "cantidad": 60, "unidad": "g" },
+        { "ingrediente": "porotos_verdes", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "zanahoria", "cantidad": 30, "unidad": "g" },
+        { "ingrediente": "arroz", "cantidad": 20, "unidad": "g" },
+        { "ingrediente": "cebolla", "cantidad": 30, "unidad": "g" },
+        { "ingrediente": "ajo", "cantidad": 5, "unidad": "g" },
+        { "ingrediente": "cilantro", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Cocinar el pollo en agua (unos 500 ml por porción) con la cebolla, el ajo y la zanahoria durante 25 minutos.",
+        "Agregar la papa y el zapallo pelados y el arroz; cocinar 15 minutos.",
+        "Incorporar el choclo y los porotos verdes; cocinar 5 minutos más.",
+        "Ajustar la sal y servir con cilantro picado."
+      ]
+    },
+    {
+      "id": "pollo_arvejado",
+      "nombre": "Pollo arvejado con arroz",
+      "categoria": "ave",
+      "dificultad": "baja",
+      "tiempo_minutos": 45,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "trutro_pollo", "cantidad": 180, "unidad": "g" },
+        { "ingrediente": "arvejas", "cantidad": 60, "unidad": "g" },
+        { "ingrediente": "zanahoria", "cantidad": 50, "unidad": "g" },
+        { "ingrediente": "cebolla", "cantidad": 50, "unidad": "g" },
+        { "ingrediente": "arroz", "cantidad": 70, "unidad": "g" },
+        { "ingrediente": "ajo", "cantidad": 5, "unidad": "g" },
+        { "ingrediente": "aceite", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "comino", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Dorar el pollo en aceite y retirarlo.",
+        "En la misma olla sofreír la cebolla y el ajo picados con comino; agregar la zanahoria en rodajas.",
+        "Volver a poner el pollo con un poco de agua y cocinar tapado 25 minutos.",
+        "Agregar las arvejas y cocinar 5 minutos más.",
+        "Servir con arroz cocido."
+      ]
+    },
+    {
+      "id": "pechuga_arroz_primavera",
+      "nombre": "Pechuga de pollo a la plancha con arroz primavera",
+      "categoria": "ave",
+      "dificultad": "baja",
+      "tiempo_minutos": 30,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "pechuga_pollo", "cantidad": 160, "unidad": "g" },
+        { "ingrediente": "arroz", "cantidad": 70, "unidad": "g" },
+        { "ingrediente": "arvejas", "cantidad": 20, "unidad": "g" },
+        { "ingrediente": "zanahoria", "cantidad": 20, "unidad": "g" },
+        { "ingrediente": "choclo", "cantidad": 20, "unidad": "g" },
+        { "ingrediente": "pimenton_rojo", "cantidad": 20, "unidad": "g" },
+        { "ingrediente": "aceite", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "pimienta", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Cocinar el arroz junto con la zanahoria y el pimentón picados en cubos pequeños.",
+        "A los 10 minutos agregar las arvejas y el choclo; terminar la cocción.",
+        "Salpimentar la pechuga y cocinarla a la plancha con aceite, 5 a 6 minutos por lado."
+      ]
+    },
+    {
+      "id": "pollo_jugo",
+      "nombre": "Pollo al jugo con papas doradas",
+      "categoria": "ave",
+      "dificultad": "baja",
+      "tiempo_minutos": 60,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "trutro_pollo", "cantidad": 220, "unidad": "g" },
+        { "ingrediente": "papa", "cantidad": 220, "unidad": "g" },
+        { "ingrediente": "cebolla", "cantidad": 60, "unidad": "g" },
+        { "ingrediente": "zanahoria", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "ajo", "cantidad": 5, "unidad": "g" },
+        { "ingrediente": "aceite", "cantidad": 2, "unidad": "cucharada" },
+        { "ingrediente": "oregano", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Dorar el pollo en una olla con aceite.",
+        "Agregar la cebolla en pluma, el ajo, la zanahoria en rodajas, orégano y sal; tapar y cocinar 35 minutos en su propio jugo.",
+        "Cortar las papas en cubos y dorarlas en una sartén con aceite, o al horno a 200 °C por 30 minutos.",
+        "Servir el pollo con su jugo y las papas doradas."
+      ]
+    },
+    {
+      "id": "tallarines_bolognesa",
+      "nombre": "Tallarines con salsa boloñesa",
+      "categoria": "pastas",
+      "dificultad": "baja",
+      "tiempo_minutos": 40,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "tallarines", "cantidad": 100, "unidad": "g" },
+        { "ingrediente": "carne_molida", "cantidad": 100, "unidad": "g" },
+        { "ingrediente": "salsa_de_tomate", "cantidad": 100, "unidad": "g" },
+        { "ingrediente": "cebolla", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "zanahoria", "cantidad": 30, "unidad": "g" },
+        { "ingrediente": "ajo", "cantidad": 5, "unidad": "g" },
+        { "ingrediente": "queso_parmesano", "opcional": true },
+        { "ingrediente": "aceite", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "oregano", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Sofreír la cebolla, el ajo y la zanahoria picados finos en aceite.",
+        "Agregar la carne molida y cocinar hasta que cambie de color.",
+        "Incorporar la salsa de tomate, el orégano y sal; cocinar a fuego bajo 20 minutos.",
+        "Cocer los tallarines en agua con sal y servir con la salsa y queso parmesano rallado."
+      ]
+    },
+    {
+      "id": "noquis_pomodoro",
+      "nombre": "Ñoquis caseros con salsa de tomate",
+      "categoria": "pastas",
+      "dificultad": "alta",
+      "tiempo_minutos": 75,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "papa", "cantidad": 200, "unidad": "g" },
+        { "ingrediente": "harina", "cantidad": 60, "unidad": "g" },
+        { "ingrediente": "huevo", "cantidad": 25, "unidad": "g" },
+        { "ingrediente": "tomate", "cantidad": 150, "unidad": "g" },
+        { "ingrediente": "cebolla", "cantidad": 30, "unidad": "g" },
+        { "ingrediente": "ajo", "cantidad": 5, "unidad": "g" },
+        { "ingrediente": "queso_parmesano", "cantidad": 10, "unidad": "g" },
+        { "ingrediente": "albahaca", "opcional": true },
+        { "ingrediente": "aceite", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Cocer las papas con cáscara, pelarlas y molerlas en caliente.",
+        "Mezclar el puré con la harina, el huevo y sal hasta formar una masa que no se pegue.",
+        "Formar cilindros, cortarlos en trozos de 2 cm y marcarlos con un tenedor.",
+        "Para la salsa, sofreír la cebolla y el ajo, agregar el tomate picado y cocinar 15 minutos con albahaca.",
+        "Cocer los ñoquis en agua hirviendo con sal hasta que floten; servir con la salsa y el parmesano."
+      ]
+    },
+    {
+      "id": "lasana_verduras",
+      "nombre": "Lasaña de verduras",
+      "categoria": "pastas",
+      "dificultad": "alta",
+      "tiempo_minutos": 90,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "laminas_lasana", "cantidad": 80, "unidad": "g" },
+        { "ingrediente": "zapallo_italiano", "cantidad": 100, "unidad": "g" },
+        { "ingrediente": "espinaca", "cantidad": 50, "unidad": "g" },
+        { "ingrediente": "champinones", "cantidad": 60, "unidad": "g" },
+        { "ingrediente": "salsa_de_tomate", "cantidad": 80, "unidad": "g" },
+        { "ingrediente": "queso_mantecoso", "cantidad": 60, "unidad": "g" },
+        { "ingrediente": "leche", "cantidad": 80, "unidad": "g" },
+        { "ingrediente": "harina", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "mantequilla", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "nuez_moscada", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Saltear el zapallo italiano en láminas, los champiñones y la espinaca por separado; salar.",
+        "Preparar salsa blanca: derretir la mantequilla, agregar la harina y luego la leche de a poco, revolviendo; sazonar con nuez moscada.",
+        "En una fuente alternar capas de salsa de tomate, láminas, verduras, salsa blanca y queso.",
+        "Terminar con salsa blanca y queso; hornear a 180 °C durante 35 minutos."
+      ]
+    },
+    {
+      "id": "budin_zapallo_italiano",
+      "nombre": "Budín de zapallo italiano",
+      "categoria": "vegetariano",
+      "dificultad": "media",
+      "tiempo_minutos": 50,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "zapallo_italiano", "cantidad": 250, "unidad": "g" },
+        { "ingrediente": "huevo", "cantidad": 50, "unidad": "g" },
+        { "ingrediente": "cebolla", "cantidad": 50, "unidad": "g" },
+        { "ingrediente": "leche", "cantidad": 50, "unidad": "g" },
+        { "ingrediente": "queso_mantecoso", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "pan_rallado", "cantidad": 2, "unidad": "cucharada" },
+        { "ingrediente": "aceite", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Picar la cebolla y el zapallo italiano en cubos; saltearlos en aceite hasta que estén blandos.",
+        "Batir los huevos con la leche, la mitad del queso rallado y sal.",
+        "Mezclar con las verduras y verter en una fuente enmantequillada.",
+        "Cubrir con el pan rallado y el resto del queso; hornear a 180 °C durante 30 minutos."
+      ]
+    },
+    {
+      "id": "tortilla_papas",
+      "nombre": "Tortilla de papas",
+      "categoria": "vegetariano",
+      "dificultad": "media",
+      "tiempo_minutos": 40,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "papa", "cantidad": 250, "unidad": "g" },
+        { "ingrediente": "huevo", "cantidad": 100, "unidad": "g" },
+        { "ingrediente": "cebolla", "cantidad": 60, "unidad": "g" },
+        { "ingrediente": "aceite", "cantidad": 3, "unidad": "cucharada" },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Pelar las papas y cortarlas en láminas finas; picar la cebolla en pluma.",
+        "Freír las papas y la cebolla en aceite a fuego medio hasta que estén blandas, sin dorar.",
+        "Escurrir y mezclar con los huevos batidos y sal.",
+        "Cuajar la mezcla en una sartén a fuego bajo, dar vuelta con un plato y terminar la cocción."
+      ]
+    },
+    {
+      "id": "risotto_champinones",
+      "nombre": "Risotto de champiñones",
+      "categoria": "vegetariano",
+      "dificultad": "media",
+      "tiempo_minutos": 45,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "arroz_arborio", "cantidad": 90, "unidad": "g" },
+        { "ingrediente": "champinones", "cantidad": 120, "unidad": "g" },
+        { "ingrediente": "cebolla", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "queso_parmesano", "cantidad": 20, "unidad": "g" },
+        { "ingrediente": "mantequilla", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "caldo_verduras", "cantidad": 5, "unidad": "g" },
+        { "ingrediente": "aceite", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Disolver el caldo en agua caliente (unos 300 ml por porción) y mantenerlo caliente.",
+        "Saltear los champiñones laminados en aceite y reservar.",
+        "Sofreír la cebolla picada, agregar el arroz y nacarar 2 minutos.",
+        "Agregar el caldo de a un cucharón, revolviendo, hasta que el arroz esté cremoso (unos 18 minutos).",
+        "Incorporar los champiñones, la mantequilla y el parmesano; reposar 2 minutos antes de servir."
+      ]
+    },
+    {
+      "id": "tortilla_acelga",
+      "nombre": "Tortilla de acelga con arroz",
+      "categoria": "vegetariano",
+      "dificultad": "baja",
+      "tiempo_minutos": 30,
+      "imagen": null,
+      "ingredientes": [
+        { "ingrediente": "acelga", "cantidad": 200, "unidad": "g" },
+        { "ingrediente": "huevo", "cantidad": 100, "unidad": "g" },
+        { "ingrediente": "cebolla", "cantidad": 50, "unidad": "g" },
+        { "ingrediente": "arroz", "cantidad": 60, "unidad": "g" },
+        { "ingrediente": "ajo", "cantidad": 5, "unidad": "g" },
+        { "ingrediente": "aceite", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "sal", "opcional": true }
+      ],
+      "preparacion": [
+        "Cocinar el arroz en agua con sal.",
+        "Lavar la acelga, picarla y cocerla 3 minutos; escurrir bien.",
+        "Sofreír la cebolla y el ajo picados; mezclar con la acelga y los huevos batidos con sal.",
+        "Cuajar en una sartén con aceite por ambos lados y servir con el arroz."
+      ]
+    }
+  ],
+  "ensaladas": [
+    {
+      "id": "ensalada_chilena",
+      "nombre": "Ensalada chilena",
+      "dificultad": "baja",
+      "ingredientes": [
+        { "ingrediente": "tomate", "cantidad": 120, "unidad": "g" },
+        { "ingrediente": "cebolla", "cantidad": 30, "unidad": "g" },
+        { "ingrediente": "cilantro", "opcional": true },
+        { "ingrediente": "aceite", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ]
+    },
+    {
+      "id": "ensalada_lechuga",
+      "nombre": "Ensalada de lechuga",
+      "dificultad": "baja",
+      "ingredientes": [
+        { "ingrediente": "lechuga", "cantidad": 80, "unidad": "g" },
+        { "ingrediente": "limon", "cantidad": 15, "unidad": "g" },
+        { "ingrediente": "aceite", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ]
+    },
+    {
+      "id": "ensalada_lentejas",
+      "nombre": "Ensalada de lentejas",
+      "dificultad": "media",
+      "ingredientes": [
+        { "ingrediente": "lentejas", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "pepino", "cantidad": 60, "unidad": "g" },
+        { "ingrediente": "cebolla_morada", "cantidad": 20, "unidad": "g" },
+        { "ingrediente": "perejil", "opcional": true },
+        { "ingrediente": "limon", "cantidad": 15, "unidad": "g" },
+        { "ingrediente": "aceite", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ]
+    },
+    {
+      "id": "ensalada_garbanzos",
+      "nombre": "Ensalada de garbanzos",
+      "dificultad": "baja",
+      "ingredientes": [
+        { "ingrediente": "garbanzos", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "pimenton_rojo", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "pepino", "cantidad": 50, "unidad": "g" },
+        { "ingrediente": "perejil", "opcional": true },
+        { "ingrediente": "vinagre", "opcional": true },
+        { "ingrediente": "aceite", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ]
+    },
+    {
+      "id": "ensalada_porotos_negros",
+      "nombre": "Ensalada de porotos negros con palta",
+      "dificultad": "media",
+      "ingredientes": [
+        { "ingrediente": "porotos_negros", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "palta", "cantidad": 50, "unidad": "g" },
+        { "ingrediente": "tomate_cherry", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "cebolla_morada", "cantidad": 20, "unidad": "g" },
+        { "ingrediente": "limon", "cantidad": 10, "unidad": "g" },
+        { "ingrediente": "aceite", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ]
+    },
+    {
+      "id": "ensalada_betarraga",
+      "nombre": "Ensalada de betarraga",
+      "dificultad": "baja",
+      "ingredientes": [
+        { "ingrediente": "betarraga", "cantidad": 120, "unidad": "g" },
+        { "ingrediente": "perejil", "opcional": true },
+        { "ingrediente": "vinagre", "opcional": true },
+        { "ingrediente": "aceite", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ]
+    },
+    {
+      "id": "ensalada_zanahoria",
+      "nombre": "Ensalada de zanahoria rallada",
+      "dificultad": "baja",
+      "ingredientes": [
+        { "ingrediente": "zanahoria", "cantidad": 100, "unidad": "g" },
+        { "ingrediente": "limon", "cantidad": 15, "unidad": "g" },
+        { "ingrediente": "aceite", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ]
+    },
+    {
+      "id": "ensalada_repollo",
+      "nombre": "Ensalada de repollo",
+      "dificultad": "baja",
+      "ingredientes": [
+        { "ingrediente": "repollo", "cantidad": 100, "unidad": "g" },
+        { "ingrediente": "vinagre", "cantidad": 1, "unidad": "cucharada" },
+        { "ingrediente": "aceite", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ]
+    },
+    {
+      "id": "ensalada_pepino_yogur",
+      "nombre": "Ensalada de pepino con yogur",
+      "dificultad": "baja",
+      "ingredientes": [
+        { "ingrediente": "pepino", "cantidad": 120, "unidad": "g" },
+        { "ingrediente": "yogur_natural", "cantidad": 60, "unidad": "g" },
+        { "ingrediente": "eneldo", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ]
+    },
+    {
+      "id": "ensalada_apio_palta",
+      "nombre": "Ensalada de apio con palta y nueces",
+      "dificultad": "baja",
+      "ingredientes": [
+        { "ingrediente": "apio", "cantidad": 80, "unidad": "g" },
+        { "ingrediente": "palta", "cantidad": 60, "unidad": "g" },
+        { "ingrediente": "nueces", "cantidad": 15, "unidad": "g" },
+        { "ingrediente": "limon", "cantidad": 10, "unidad": "g" },
+        { "ingrediente": "aceite", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ]
+    },
+    {
+      "id": "ensalada_rucula_pera",
+      "nombre": "Ensalada de rúcula con pera y nueces",
+      "dificultad": "baja",
+      "ingredientes": [
+        { "ingrediente": "rucula", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "pera", "cantidad": 80, "unidad": "g" },
+        { "ingrediente": "nueces", "cantidad": 15, "unidad": "g" },
+        { "ingrediente": "vinagre", "opcional": true },
+        { "ingrediente": "aceite", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ]
+    },
+    {
+      "id": "ensalada_porotos_verdes",
+      "nombre": "Ensalada de porotos verdes",
+      "dificultad": "baja",
+      "ingredientes": [
+        { "ingrediente": "porotos_verdes", "cantidad": 100, "unidad": "g" },
+        { "ingrediente": "cebolla_morada", "cantidad": 20, "unidad": "g" },
+        { "ingrediente": "aceite", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ]
+    },
+    {
+      "id": "ensalada_quinoa",
+      "nombre": "Ensalada de quínoa",
+      "dificultad": "media",
+      "ingredientes": [
+        { "ingrediente": "quinoa", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "tomate_cherry", "cantidad": 50, "unidad": "g" },
+        { "ingrediente": "pepino", "cantidad": 40, "unidad": "g" },
+        { "ingrediente": "menta", "opcional": true },
+        { "ingrediente": "limon", "cantidad": 10, "unidad": "g" },
+        { "ingrediente": "aceite", "opcional": true },
+        { "ingrediente": "sal", "opcional": true }
+      ]
+    }
+  ]
+}

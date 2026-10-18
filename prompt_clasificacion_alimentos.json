@@ -1,0 +1,111 @@
+{
+  "instrucción_clasificación": "Clasifica el alimento proporcionado dentro de UNA de las siguientes categorías según su estado de conservación, procesamiento y uso principal. Si un producto califica en dos categorías, prioriza la categoría según la regla de precedencia definida.",
+  "regla_de_precedencia": "Estado de conservación (Congelados > Frescos) > Nivel de procesamiento (Preparados > Despensa)",
+  "categorías": [
+    {
+      "id": "frutas_y_verduras",
+      "nombre": "Frutas y Verduras",
+      "descripcion": "Productos vegetales frescos, crudos y sin procesar.",
+      "incluye": ["frutas de estación", "hortalizas", "verduras de hoja", "tubérculos", "hierbas aromáticas frescas"],
+      "excluye": ["verduras congeladas", "conservas de verdura", "frutos secos"],
+      "ejemplos": ["manzana", "palta", "papas frescas", "cilantro"]
+    },
+    {
+      "id": "carnes_y_aves",
+      "nombre": "Carnes y Aves",
+      "descripcion": "Carne cruda de animales terrestres y aves de corral.",
+      "incluye": ["vacuno", "cerdo", "pollo", "pavo", "cordero", "carne molida cruda", "visceras"],
+      "excluye": ["embutidos", "fiambres procesados", "carnes congeladas preparadas como nuggets"],
+      "ejemplos": ["pechuga de pollo cruda", "lomo de vacuno", "costillar de cerdo"]
+    },
+    {
+      "id": "pescados_y_mariscos",
+      "nombre": "Pescados y Mariscos",
+      "descripcion": "Productos del mar frescos o refrigerados (no congelados).",
+      "incluye": ["pescados enteros", "filetes frescos", "mariscos", "moluscos"],
+      "excluye": ["atún en lata", "mariscos congelados"],
+      "ejemplos": ["salmon fresco", "camaron crudo refrigerado", "reineta"]
+    },
+    {
+      "id": "lacteos_y_huevos",
+      "nombre": "Lácteos y Huevos",
+      "descripcion": "Productos derivados de la leche y huevos de aves.",
+      "incluye": ["leche líquida o en polvo", "yogur", "quesos", "mantequilla", "crema de leche", "huevos"],
+      "excluye": ["margarina vegetal (si se clasifica aparte)", "bebidas vegetales de soya/almendra"],
+      "ejemplos": ["queso gouda", "leche entera", "huevos de gallina", "yogur natural"]
+    },
+    {
+      "id": "fiambreria_y_charcuteria",
+      "nombre": "Fiambrería y Charcutería",
+      "descripcion": "Carnes curadas, cocidas, ahumadas o procesadas listas para consumir o lonchear.",
+      "incluye": ["jamón", "salames", "salchichas", "chorizos", "patés", "cecinas"],
+      "excluye": ["carne fresca molida", "carne cruda"],
+      "ejemplos": ["jamón cocido", "salchicha tradicional", "salami lonchado"]
+    },
+    {
+      "id": "panaderia_y_pasteleria",
+      "nombre": "Panadería y Pastelería",
+      "descripcion": "Productos horneados frescos de panadería, repostería y masas.",
+      "incluye": ["pan fresco", "pasteles", "galletas artesana/horneada", "masas para empanadas/pizzas", "bollería"],
+      "excluye": ["galletas envasadas de larga duración (snack)", "pan de molde industrial de larga duración"],
+      "ejemplos": ["pan marraqueta/hallulla", "croissant", "queque artesanal"]
+    },
+    {
+      "id": "abarrotes_despensa",
+      "nombre": "Abarrotes y Despensa",
+      "descripcion": "Alimentos secos, no perecederos a corto plazo, aceites y conservas a temperatura ambiente.",
+      "incluye": ["arroz", "legumbres secas", "pastas", "harinas", "aceites", "vinagres", "salsas en frasco/sobre", "enlatados (atún, arvejas, duraznos)"],
+      "excluye": ["cereales de desayuno", "botanas/chips"],
+      "ejemplos": ["fideos spaghetti", "aceite de oliva", "atún en lata", "lentejas secas"]
+    },
+    {
+      "id": "desayuno_y_cereales",
+      "nombre": "Desayuno y Cereales",
+      "descripcion": "Productos orientados principalmente al consumo durante el desayuno o la merienda.",
+      "incluye": ["cereales de hojuelas", "avena", "mermeladas", "miel", "manjar/dulce de leche", "café", "té", "infusiones", "cacao en polvo"],
+      "excluye": ["leche líquida", "pan fresco"],
+      "ejemplos": ["café soluble", "mermelada de frutilla", "avena entera", "té negro en bolsas"]
+    },
+    {
+      "id": "alimentos_congelados",
+      "nombre": "Alimentos Congelados",
+      "descripcion": "Cualquier producto que requiera mantenerse a temperaturas bajo cero.",
+      "incluye": ["verduras picadas congeladas", "comidas congeladas", "pizzas congeladas", "hamburguesas congeladas", "helados", "hielo"],
+      "excluye": ["carnes refrigeradas no congeladas"],
+      "ejemplos": ["choclo desgranado congelado", "pizza congelada", "helado de casata"]
+    },
+    {
+      "id": "snacks_y_golosinas",
+      "nombre": "Snacks y Golosinas",
+      "descripcion": "Alimentos procesados de consumo rápido, salados o dulces.",
+      "incluye": ["papas fritas de bolsa", "frutos secos procesados/salados", "galletas envasadas", "chocolates", "dulces y caramelos"],
+      "excluye": ["frutos secos crudos sin procesar (pueden ir en despensa)", "repostería fresca"],
+      "ejemplos": ["papas fritas Lays", "barra de chocolate", "galletas Oreo", "maní salado"]
+    },
+    {
+      "id": "bebidas_y_liquidos",
+      "nombre": "Bebidas y Líquidos",
+      "descripcion": "Líquidos embotellados o envasados para hidratación o consumo social.",
+      "incluye": ["agua mineral", "jugos envasados", "gaseosas", "bebidas isotónicas", "vinos", "cervezas", "licores"],
+      "excluye": ["leche líquida", "café/té preparado servido caliente"],
+      "ejemplos": ["agua sin gas 1.5L", "bebida de fantasía", "vino tinto", "cerveza lata"]
+    },
+    {
+      "id": "comida_preparada_delicatessen",
+      "nombre": "Comida Preparada / Delicatessen",
+      "descripcion": "Platos listos para consumir de inmediato o tras calentamiento breve, no congelados.",
+      "incluye": ["rotisería caliente (pollo asado)", "ensaladas preparadas con aderezo", "sushi", "sandwiches preparados"],
+      "excluye": ["comidas congeladas", "conservas en lata"],
+      "ejemplos": ["pollo asado de rotisería", "bandeja de sushi mixta", "ensalada César lista"]
+    },
+    {
+      "id": "dieteticos_y_especiales",
+      "nombre": "Dietéticos y Especiales",
+      "descripcion": "Productos formulados específicamente para necesidades dietéticas o de salud particulares.",
+      "incluye": ["alimentos sin gluten certificados", "productos veganos análogos", "sin azúcar añadida / keto", "suplementos proteicos"],
+      "excluye": ["alimentos naturalmente sin gluten como el arroz común"],
+      "ejemplos": ["pan de molde gluten free", "hamburguesa 100% vegetal (Beyond)", "protein powder"]
+    }
+  ]
+}
+

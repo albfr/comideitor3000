@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+:root {
+  --fondo: #faf7f2;
+  --tarjeta: #ffffff;
+  --texto: #1f1b16;
+  --suave: #6b6258;
+  --borde: #e7e0d6;
+  --acento: #c2410c;
+  --acento-texto: #ffffff;
+  --acento-suave: #fff1e6;
+  --peligro: #b91c1c;
+  --peligro-suave: #fef2f2;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fondo: #171412;
+    --tarjeta: #221e1a;
+    --texto: #f3eee8;
+    --suave: #a79d92;
+    --borde: #3a332c;
+    --acento: #fb923c;
+    --acento-texto: #1f1b16;
+    --acento-suave: #3a2416;
+    --peligro: #f87171;
+    --peligro-suave: #3b1717;
+  }
+}
+
+@theme inline {
+  --color-fondo: var(--fondo);
+  --color-tarjeta: var(--tarjeta);
+  --color-texto: var(--texto);
+  --color-suave: var(--suave);
+  --color-borde: var(--borde);
+  --color-acento: var(--acento);
+  --color-acento-texto: var(--acento-texto);
+  --color-acento-suave: var(--acento-suave);
+  --color-peligro: var(--peligro);
+  --color-peligro-suave: var(--peligro-suave);
+  --font-sans: var(--font-geist-sans);
+}
+
+body {
+  background: var(--fondo);
+  color: var(--texto);
+}
+
+/* Botón llamativo de propuestas de fin de semana. */
+@keyframes brillo {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.boton-fiesta {
+  background: linear-gradient(110deg, #f97316, #ec4899, #8b5cf6, #f59e0b, #f97316);
+  background-size: 300% 300%;
+  animation: brillo 6s ease infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boton-fiesta { animation: none; }
+}

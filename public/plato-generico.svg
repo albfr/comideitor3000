@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Plato sin imagen">
+  <rect width="800" height="450" fill="#f3e8dc"/>
+  <ellipse cx="400" cy="240" rx="190" ry="150" fill="#ffffff" stroke="#e2d3c3" stroke-width="6"/>
+  <ellipse cx="400" cy="240" rx="120" ry="92" fill="none" stroke="#eadccd" stroke-width="4"/>
+  <g stroke="#c9b8a6" stroke-width="10" stroke-linecap="round" fill="none">
+    <path d="M150 120v70m-18-70v52c0 14 36 14 36 0v-52M150 190v150"/>
+    <path d="M650 120c-22 10-30 50-30 80 0 18 12 24 30 24v116"/>
+  </g>
+</svg>
