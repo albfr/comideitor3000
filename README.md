@@ -17,11 +17,11 @@ Se asume que todas las recetas de almuerzo ingresadas al catálogo son nutricion
 - **RF-01:** El sistema debe considerar que en el hogar puede haber integrantes vegetarianos, lo que se cubre con los sustitutos de carne (RF-04). Otras restricciones (celíaco, intolerancia a la lactosa, alergias, alimentos que no gustan) quedan fuera del alcance por ahora.
 
 ### Comensales
-- **RF-02:** El sistema debe permitir indicar y modificar cuántos integrantes del hogar almorzarán cada día de la semana actual y de la siguiente, para calcular las cantidades de la lista de compras (RF-13). El valor por defecto es 3 comensales y el mínimo es 1.
+- **RF-02:** El sistema debe permitir indicar y modificar cuántos integrantes del hogar almorzarán cada día de la semana actual y de la siguiente, para calcular las cantidades de la lista de compras (RF-13). También debe permitir indicar cuántos de esos comensales son vegetarianos. Por defecto hay 3 comensales, de los cuales 1 es vegetariano; el mínimo es 1 comensal y los vegetarianos van de 0 al total de comensales.
 
 ### Catálogo de almuerzos
 - **RF-03:** El sistema debe mantener un catálogo de almuerzos, cada uno con nombre, imagen (opcional; si falta se muestra una imagen genérica), ingredientes (con cantidad por porción en gramos o cucharadas; los ingredientes "al gusto" se marcan como opcionales), preparación, tiempo de preparación y nivel de dificultad (bajo, medio, alto o muy alto).
-- **RF-04:** El sistema debe mantener un conjunto de sustitutos de carne (por ejemplo: tofu, seitán, soya texturizada). Cuando un almuerzo de la minuta contiene carne, ave, pescado o mariscos, el generador le asigna al azar uno de estos sustitutos. El almuerzo conserva su categoría original.
+- **RF-04:** El sistema debe mantener un conjunto de sustitutos de carne (por ejemplo: tofu, seitán, soya texturizada). Cuando un almuerzo de la minuta contiene carne, ave, pescado o mariscos, el generador le asigna al azar uno de estos sustitutos. Los ingredientes con carne, ave, pescado o mariscos se calculan solo para los comensales no vegetarianos, y el sustituto, una porción por cada comensal vegetariano (RF-02). El almuerzo conserva su categoría original.
 - **RF-05:** El sistema debe permitir agregar, editar y eliminar almuerzos del catálogo.
 - **RF-06:** El sistema debe clasificar cada almuerzo en una categoría (legumbres; pescados, mariscos y algas; carne roja; ave; pastas; vegetariano) para poder balancear la variedad semanal. Cada categoría tendrá un límite semanal, por definir.
 
@@ -111,12 +111,15 @@ Mostrará las tres opciones de minuta para la semana siguiente, permite explorar
 Las propuestas se generan una sola vez y se mantienen iguales durante el fin de semana. Una vez escogida una minuta, la elección no se puede cambiar.
 ### Vista bisemanal
 Muestra la minuta de la semana actual y en caso de haber seleccionado la minuta de la próxima semana, se mostrarán la minuta actual y la próxima, incluyendo nombres de los días de la semana y el día del mes (1, 2, 20, ...)
-Cada día muestra la cantidad de comensales, con un botón '-' a la izquierda y un botón '+' a la derecha para modificarla (RF-02). El mínimo es 1 comensal. Los días ya pasados no se pueden modificar.
+Cada día muestra la cantidad de comensales y, debajo, cuántos son vegetarianos, cada uno con un botón '-' a la izquierda y un botón '+' a la derecha para modificarla (RF-02). El mínimo es 1 comensal. Los días ya pasados no se pueden modificar.
 Los días se reordenan arrastrándolos a la posición deseada (RF-20 y RF-21). Al tocar un día se abre el detalle de su almuerzo y ensalada (RF-19).
 ### Vista de ingredientes
 Se muestra una lista de ingredientes en una tabla y las cantidades necesarias. Esta vista permite togglear entre hoy, mañana, los días restantes de la semana (incluyendo hoy) y en caso de haber seleccionado la minuta de la próxima semana, también se pueda ver el total de la próxima semana.
 ### Vista de catálogo
 Lista los almuerzos y las ensaladas del catálogo, permite ver el detalle de cada uno, agregar nuevos, editarlos y eliminarlos (RF-05 y RF-08). Subir imágenes desde esta vista queda para más adelante (RF-30).
+
+### Escritorio
+En pantallas anchas las vistas se ordenan en horizontal: el detalle de un plato muestra los ingredientes en una columna a la derecha, las tres propuestas se ven lado a lado, la vista bisemanal pone las dos semanas en columnas, la lista de ingredientes reparte los pasillos en columnas y el catálogo muestra almuerzos y ensaladas lado a lado. En el celular todo se mantiene apilado.
 
 ## Restricciones
 - Dos veces a la semana legumbres (al menos una vez debe ser almuerzo)
@@ -184,7 +187,6 @@ Sin `APP_PASSWORD`, en desarrollo la aplicación queda abierta; en producción e
 5. Conectar el repositorio a Vercel y desplegar. Vercel sirve la aplicación por HTTPS.
 
 ## Decisiones provisorias del MVP
-- **Sustituto de carne:** se compra 1 porción por día con almuerzo con carne, independiente de los comensales.
 - **Eliminar recetas:** es una eliminación lógica. La receta desaparece del catálogo y de las nuevas propuestas, pero las minutas que ya la usan la siguen mostrando.
 - **Reordenar:** solo dentro de la misma semana.
 - **Imágenes:** se cargan con `npm run db:cargar` (campo `imagen` de `data/catalogo.json`, ruta relativa a `data/`); desde la interfaz aún no se pueden subir (RF-30).
@@ -193,5 +195,4 @@ Sin `APP_PASSWORD`, en desarrollo la aplicación queda abierta; en producción e
 ## Puntos por definir
 1. Motor de generación de minutas. Mientras se define, las alternativas se generan de forma pseudoaleatoria respetando las reglas de [Restricciones](#restricciones).
 2. Límite semanal de cada categoría de almuerzo (RF-06)
-3. Cuántas porciones del sustituto de carne se compran por día (RF-04)
-4. Confirmar el comportamiento al eliminar recetas (ver decisiones provisorias)
+3. Confirmar el comportamiento al eliminar recetas (ver decisiones provisorias)

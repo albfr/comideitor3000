@@ -7,7 +7,7 @@ import { hoy } from "@/dominio/fechas";
 import { DIFICULTADES, DIFICULTADES_ENSALADA, GRUPOS, type Grupo, type Ingrediente, type LineaIngrediente } from "@/dominio/tipos";
 import { validarLineas } from "@/dominio/validarCatalogo";
 import { cargarCatalogo, crearId, eliminarReceta, guardarIngrediente, guardarReceta, idsDeRecetas } from "@/servidor/catalogo";
-import { cambiarComensales, reordenarSemana, seleccionarPropuesta } from "@/servidor/minutas";
+import { cambiarComensales, cambiarVegetarianos, reordenarSemana, seleccionarPropuesta } from "@/servidor/minutas";
 import { IDS_PASILLOS } from "@/servidor/pasillos";
 import { COOKIE_SESION, contrasenaCorrecta, DURACION_SESION_SEGUNDOS, sesionValida, tokenDeSesion } from "@/servidor/sesion";
 
@@ -65,6 +65,12 @@ export async function reordenarDias(inicio: string, nuevoOrden: string[]) {
 export async function cambiarComensalesDia(formData: FormData) {
   await exigirSesion();
   await cambiarComensales(texto(formData, "fecha"), Number(texto(formData, "delta")), hoy());
+  refresh();
+}
+
+export async function cambiarVegetarianosDia(formData: FormData) {
+  await exigirSesion();
+  await cambiarVegetarianos(texto(formData, "fecha"), Number(texto(formData, "delta")), hoy());
   refresh();
 }
 

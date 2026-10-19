@@ -4,9 +4,10 @@ import { elegirMinuta } from "@/app/acciones";
 import { DetalleDia } from "@/componentes/DetalleDia";
 import { textoFecha } from "@/componentes/formato";
 import { PestanasAlternativas } from "@/componentes/PestanasAlternativas";
+import { VentanaFlotante } from "@/componentes/VentanaFlotante";
 import { diasDeSemana, diasRestantes, esFinDeSemana, hoy, inicioSemana, sumarDias } from "@/dominio/fechas";
 import { cargarCatalogo } from "@/servidor/catalogo";
-import { COMENSALES_POR_DEFECTO, obtenerPropuestas, obtenerSemana, tieneMinuta } from "@/servidor/minutas";
+import { COMENSALES_POR_DEFECTO, obtenerPropuestas, obtenerSemana, tieneMinuta, VEGETARIANOS_POR_DEFECTO } from "@/servidor/minutas";
 import { Suspense } from "react";
 import Cargando from "@/app/loading";
 
@@ -76,25 +77,32 @@ async function ContenidoVistaPropuestas({ searchParams }: PageProps<"/propuestas
           if (!almuerzo || !ensalada) return null;
           return (
             <li key={dia.fecha}>
-              <details className="group rounded-xl border border-borde bg-tarjeta">
-                <summary className="flex cursor-pointer list-none items-center gap-3 p-3">
-                  <span className="w-24 shrink-0 text-sm font-semibold text-suave">{textoFecha(dia.fecha)}</span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate font-medium">{almuerzo.nombre}</span>
-                    <span className="block truncate text-sm text-suave">{ensalada.nombre}</span>
-                  </span>
-                  <span aria-hidden className="text-suave transition-transform group-open:rotate-90">›</span>
-                </summary>
-                <div className="border-t border-borde p-4">
-                  <DetalleDia
-                    almuerzo={almuerzo}
-                    ensalada={ensalada}
-                    sustitutoId={dia.sustitutoId}
-                    comensales={COMENSALES_POR_DEFECTO}
-                    catalogo={catalogo}
-                  />
-                </div>
-              </details>
+              <VentanaFlotante
+                titulo={`${textoFecha(dia.fecha)}: ${almuerzo.nombre}`}
+                className="flex w-full items-center gap-3 rounded-xl border border-borde bg-tarjeta p-3 text-left transition-colors hover:border-acento"
+                disparador={
+                  <>
+                    <span className="w-24 shrink-0 text-sm font-semibold text-suave">{textoFecha(dia.fecha)}</span>
+                    <span className="min-w-0 flex-1">
+                      <span className="line-clamp-2 block font-medium leading-snug">{almuerzo.nombre}</span>
+                      <span className="block truncate text-sm text-suave">{ensalada.nombre}</span>
+                    </span>
+                    <span aria-hidden className="text-suave">›</span>
+                  </>
+                }
+              >
+                <p className="mb-3 text-sm font-medium uppercase tracking-wide text-suave">
+                  {textoFecha(dia.fecha)} · Alternativa {indice + 1}
+                </p>
+                <DetalleDia
+                  almuerzo={almuerzo}
+                  ensalada={ensalada}
+                  sustitutoId={dia.sustitutoId}
+                  comensales={COMENSALES_POR_DEFECTO}
+                  vegetarianos={VEGETARIANOS_POR_DEFECTO}
+                  catalogo={catalogo}
+                />
+              </VentanaFlotante>
             </li>
           );
         })}
@@ -117,7 +125,7 @@ async function ContenidoVistaPropuestas({ searchParams }: PageProps<"/propuestas
           {fechas.length === 1
             ? `Solo el ${textoFecha(fechas[0]).toLowerCase()}.`
             : `Del ${textoFecha(fechas[0]).toLowerCase()} al ${textoFecha(fechas.at(-1)!).toLowerCase()}.`}{" "}
-          Toca un día para ver su detalle. Una vez elegida, la minuta no se puede cambiar.
+          Toca un día para ver su almuerzo. Una vez elegida, la minuta no se puede cambiar.
         </p>
       </header>
       <PestanasAlternativas paneles={paneles} />

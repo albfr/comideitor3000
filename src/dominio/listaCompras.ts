@@ -1,11 +1,10 @@
-import { gramosDeLinea, textoCantidad } from "./cantidades";
+import { gramosDeLinea, porcionesDeLinea, textoCantidad } from "./cantidades";
 import type { Almuerzo, CatalogoIndexado, Ensalada, Ingrediente } from "./tipos";
-
-/** Porciones de sustituto de carne que se compran por día con almuerzo con carne (supuesto provisorio, ver README). */
-export const PORCIONES_SUSTITUTO = 1;
 
 export interface DiaConsumo {
   comensales: number;
+  /** Comensales que comen el sustituto en vez de carne, ave, pescado o mariscos. */
+  vegetarianos: number;
   almuerzo: Almuerzo;
   ensalada: Ensalada;
   sustitutoId: string | null;
@@ -24,7 +23,10 @@ export interface SeccionCompra {
   items: ItemCompra[];
 }
 
-/** Lista de compras (RF-13 a RF-16): suma por ingrediente, escala por comensales y agrupa por pasillo. */
+/**
+ * Lista de compras (RF-13 a RF-16): suma por ingrediente, escala por comensales y agrupa por pasillo.
+ * La carne se calcula para los no vegetarianos y el sustituto para los vegetarianos.
+ */
 export function calcularListaCompras(
   dias: DiaConsumo[],
   idx: CatalogoIndexado,
@@ -44,13 +46,16 @@ export function calcularListaCompras(
       for (const linea of receta.ingredientes) {
         const ingrediente = idx.ingredientes.get(linea.ingrediente);
         if (!ingrediente) throw new Error(`Ingrediente desconocido: ${linea.ingrediente}`);
-        sumar(linea.ingrediente, gramosDeLinea(linea, ingrediente) * dia.comensales);
+        if (linea.opcional) {
+          sumar(linea.ingrediente, 0);
+          continue;
+        }
+        const porciones = porcionesDeLinea(ingrediente, dia.comensales, dia.vegetarianos);
+        if (porciones > 0) sumar(linea.ingrediente, gramosDeLinea(linea, ingrediente) * porciones);
       }
     }
-    if (dia.sustitutoId) {
-      const sustituto = idx.sustitutos.get(dia.sustitutoId);
-      if (sustituto) sumar(sustituto.ingrediente, sustituto.gramos_por_porcion * PORCIONES_SUSTITUTO);
-    }
+    const sustituto = dia.sustitutoId ? idx.sustitutos.get(dia.sustitutoId) : undefined;
+    if (sustituto && dia.vegetarianos > 0) sumar(sustituto.ingrediente, sustituto.gramos_por_porcion * dia.vegetarianos);
   }
 
   const secciones = new Map<string, ItemCompra[]>();

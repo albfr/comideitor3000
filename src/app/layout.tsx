@@ -26,7 +26,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Suspense fallback={<BarraNavegacion ruta={null} />}>
           <Navegacion />
         </Suspense>
-        <main className="mx-auto w-full max-w-2xl px-4 pb-16 pt-4">{children}</main>
+        <main className="mx-auto w-full max-w-2xl px-4 pb-16 pt-4 lg:max-w-6xl lg:px-8 lg:pt-6">{children}</main>
       </body>
     </html>
   );

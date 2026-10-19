@@ -33,6 +33,7 @@ async function ContenidoVistaBisemanal() {
         esHoy: f === fecha,
         pasado: f < fecha,
         comensales: fila?.comensales ?? null,
+        vegetarianos: fila?.vegetarianos ?? null,
         contenido:
           almuerzo && ensalada
             ? {
@@ -52,8 +53,8 @@ async function ContenidoVistaBisemanal() {
       <header className="space-y-1">
         <h1 className="text-2xl font-bold">Minuta bisemanal</h1>
         <p className="text-sm text-suave">
-          Arrastra un día desde ⠿ para cambiar su posición. Usa − y + para ajustar los comensales. Toca un plato para ver su
-          detalle.
+          Arrastra un día desde ⠿ para cambiar su posición. Usa − y + para ajustar el total de comensales y cuántos son
+          vegetarianos (Veg.). Toca un plato para ver su detalle.
         </p>
       </header>
 
@@ -66,6 +67,7 @@ async function ContenidoVistaBisemanal() {
         </div>
       )}
 
+      <div className="space-y-6 lg:grid lg:grid-cols-2 lg:items-start lg:gap-8 lg:space-y-0">
       {semanas.map((s) => (
         <section key={s.inicio} className="space-y-3">
           <h2 className="text-lg font-semibold">{s.titulo}</h2>
@@ -76,6 +78,15 @@ async function ContenidoVistaBisemanal() {
           />
         </section>
       ))}
+      {semanas.length === 1 && (
+        <section className="hidden space-y-3 lg:block">
+          <h2 className="text-lg font-semibold">Próxima semana</h2>
+          <p className="rounded-xl border border-dashed border-borde p-4 text-sm text-suave">
+            La minuta de la próxima semana se elige el sábado o el domingo.
+          </p>
+        </section>
+      )}
+      </div>
     </div>
   );
 }

@@ -22,7 +22,7 @@ async function ContenidoEditarReceta({ params }: PageProps<"/catalogo/[id]/edita
   if (!receta) notFound();
 
   return (
-    <div className="space-y-5">
+    <div className="mx-auto max-w-2xl space-y-5">
       <Link href={`/catalogo/${id}`} className="text-sm font-medium text-acento">
         ← {receta.nombre}
       </Link>

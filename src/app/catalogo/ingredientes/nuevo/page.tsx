@@ -8,7 +8,7 @@ async function ContenidoNuevoIngrediente({ searchParams }: PageProps<"/catalogo/
   const { volver: pedido } = await searchParams;
   const volver = typeof pedido === "string" && pedido.startsWith("/catalogo") ? pedido : "/catalogo";
   return (
-    <div className="space-y-5">
+    <div className="mx-auto max-w-2xl space-y-5">
       <Link href={volver} className="text-sm font-medium text-acento">
         ← Volver
       </Link>

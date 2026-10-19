@@ -52,6 +52,7 @@ async function ContenidoVistaPrincipal() {
           ensalada={ensalada}
           sustitutoId={dia.sustitutoId}
           comensales={dia.comensales}
+          vegetarianos={dia.vegetarianos}
           catalogo={catalogo}
           prioridadImagen
         />
@@ -59,7 +60,7 @@ async function ContenidoVistaPrincipal() {
         tieneMinuta(semana) && <p className="text-suave">Hoy no hay almuerzo planificado.</p>
       )}
 
-      <nav className="grid grid-cols-3 gap-2 pt-2">
+      <nav className="grid grid-cols-3 gap-2 pt-2 lg:max-w-xl">
         {[
           { href: "/semana", texto: "Vista bisemanal" },
           { href: "/ingredientes", texto: "Ingredientes" },

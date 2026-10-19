@@ -14,7 +14,7 @@ import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, v
 import { CSS } from "@dnd-kit/utilities";
 import Link from "next/link";
 import { useState, useTransition } from "react";
-import { cambiarComensalesDia, reordenarDias } from "@/app/acciones";
+import { cambiarComensalesDia, cambiarVegetarianosDia, reordenarDias } from "@/app/acciones";
 
 export interface ContenidoDia {
   almuerzo: string;
@@ -28,6 +28,7 @@ export interface DiaSemana {
   esHoy: boolean;
   pasado: boolean;
   comensales: number | null;
+  vegetarianos: number | null;
   contenido: ContenidoDia | null;
 }
 
@@ -37,9 +38,9 @@ function Tarjeta({ contenido, fecha, arrastre }: { contenido: ContenidoDia; fech
   return (
     <div className={`flex ${ALTO_FILA} items-center gap-2 rounded-xl border border-borde bg-tarjeta pl-3`}>
       <Link href={`/dia/${fecha}`} className="min-w-0 flex-1 py-2">
-        <span className="block truncate font-medium">{contenido.almuerzo}</span>
+        <span className="line-clamp-2 block font-medium leading-tight">{contenido.almuerzo}</span>
         <span className="block truncate text-sm text-suave">{contenido.ensalada}</span>
-        <span className="block truncate text-xs text-suave">{contenido.categoria}</span>
+        <span className="hidden truncate text-xs text-suave sm:block">{contenido.categoria}</span>
       </Link>
       {arrastre}
     </div>
@@ -73,19 +74,35 @@ function TarjetaOrdenable({ id, contenido, fecha }: { id: string; contenido: Con
   );
 }
 
-function Comensales({ fecha, cantidad, editable }: { fecha: string; cantidad: number; editable: boolean }) {
+interface PropsContador {
+  fecha: string;
+  etiqueta: string;
+  nombre: string;
+  cantidad: number;
+  minimo: number;
+  maximo?: number;
+  editable: boolean;
+  accion: (formData: FormData) => Promise<void>;
+}
+
+function Contador({ fecha, etiqueta, nombre, cantidad, minimo, maximo, editable, accion }: PropsContador) {
   const boton =
-    "flex h-7 w-7 items-center justify-center rounded-full border border-borde bg-tarjeta text-base font-semibold disabled:opacity-40";
+    "flex h-6 w-6 items-center justify-center rounded-full border border-borde bg-tarjeta text-sm font-semibold disabled:opacity-40";
   return (
-    <form action={cambiarComensalesDia} className="flex items-center gap-1.5" aria-label="Comensales">
+    <form action={accion} className="flex items-center gap-1" aria-label={nombre}>
       <input type="hidden" name="fecha" value={fecha} />
-      <button name="delta" value="-1" disabled={!editable || cantidad <= 1} className={boton} aria-label="Quitar un comensal">
+      <span className="w-9 text-[11px] text-suave">{etiqueta}</span>
+      <button name="delta" value="-1" disabled={!editable || cantidad <= minimo} className={boton} aria-label={`Quitar ${nombre}`}>
         −
       </button>
-      <span className="w-5 text-center text-sm font-semibold tabular-nums" title="Comensales">
-        {cantidad}
-      </span>
-      <button name="delta" value="1" disabled={!editable} className={boton} aria-label="Agregar un comensal">
+      <span className="w-5 text-center text-sm font-semibold tabular-nums">{cantidad}</span>
+      <button
+        name="delta"
+        value="1"
+        disabled={!editable || (maximo !== undefined && cantidad >= maximo)}
+        className={boton}
+        aria-label={`Agregar ${nombre}`}
+      >
         +
       </button>
     </form>
@@ -120,13 +137,35 @@ export function SemanaEditable({ inicio, dias }: { inicio: string; dias: DiaSema
             const ordenable = !dia.pasado && dia.contenido;
             const id = ordenable ? orden[posicion++] : null;
             return (
-              <li key={dia.fecha} className={`grid grid-cols-[6.5rem_1fr] gap-2 ${dia.pasado ? "opacity-55" : ""}`}>
-                <div className={`flex ${ALTO_FILA} flex-col justify-center gap-1.5`}>
+              <li key={dia.fecha} className={`grid grid-cols-[7.75rem_minmax(0,1fr)] gap-2 ${dia.pasado ? "opacity-55" : ""}`}>
+                <div className={`flex ${ALTO_FILA} flex-col justify-center gap-1`}>
                   <span className={`text-sm font-semibold ${dia.esHoy ? "text-acento" : ""}`}>
                     {dia.etiqueta}
                     {dia.esHoy && <span className="block text-xs font-medium">Hoy</span>}
                   </span>
-                  {dia.comensales != null && <Comensales fecha={dia.fecha} cantidad={dia.comensales} editable={!dia.pasado} />}
+                  {dia.comensales != null && (
+                    <Contador
+                      fecha={dia.fecha}
+                      etiqueta="Total"
+                      nombre="comensales"
+                      cantidad={dia.comensales}
+                      minimo={1}
+                      editable={!dia.pasado}
+                      accion={cambiarComensalesDia}
+                    />
+                  )}
+                  {dia.comensales != null && dia.vegetarianos != null && (
+                    <Contador
+                      fecha={dia.fecha}
+                      etiqueta="Veg."
+                      nombre="comensales vegetarianos"
+                      cantidad={dia.vegetarianos}
+                      minimo={0}
+                      maximo={dia.comensales}
+                      editable={!dia.pasado}
+                      accion={cambiarVegetarianosDia}
+                    />
+                  )}
                 </div>
                 {id ? (
                   <TarjetaOrdenable id={id} contenido={contenidoPorId.get(id)!} fecha={dia.fecha} />

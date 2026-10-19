@@ -46,3 +46,12 @@ export function gramosDeLinea(linea: LineaIngrediente, ingrediente: Ingrediente)
     throw new Error(`El ingrediente ${ingrediente.id} se usa en cucharadas pero no tiene gramos_por_cucharada`);
   return linea.cantidad * ingrediente.gramos_por_cucharada;
 }
+
+/** Grupos que un comensal vegetariano no come: se reemplazan por el sustituto de carne. */
+const GRUPOS_CON_CARNE = new Set(["carne", "pescado_marisco"]);
+
+/** Porciones de una línea: los ingredientes con carne, ave, pescado o mariscos solo para los no vegetarianos. */
+export function porcionesDeLinea(ingrediente: Ingrediente, comensales: number, vegetarianos: number): number {
+  const conCarne = ingrediente.grupo != null && GRUPOS_CON_CARNE.has(ingrediente.grupo);
+  return conCarne ? Math.max(0, comensales - vegetarianos) : comensales;
+}

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calcularListaCompras, PORCIONES_SUSTITUTO } from "./listaCompras";
+import { calcularListaCompras } from "./listaCompras";
 import { indexar, type Almuerzo, type Catalogo, type Ensalada } from "./tipos";
 
 const catalogo: Catalogo = {
@@ -46,8 +46,8 @@ describe("lista de compras", () => {
   it("suma un ingrediente entre recetas y días, escalado por comensales", () => {
     const lista = calcularListaCompras(
       [
-        { comensales: 3, almuerzo: guiso, ensalada: chilena, sustitutoId: null },
-        { comensales: 2, almuerzo: pino, ensalada: chilena, sustitutoId: null },
+        { comensales: 3, almuerzo: guiso, ensalada: chilena, vegetarianos: 0, sustitutoId: null },
+        { comensales: 2, almuerzo: pino, ensalada: chilena, vegetarianos: 0, sustitutoId: null },
       ],
       idx,
     );
@@ -59,29 +59,47 @@ describe("lista de compras", () => {
   });
 
   it("convierte cucharadas a gramos", () => {
-    const lista = calcularListaCompras([{ comensales: 3, almuerzo: guiso, ensalada: chilena, sustitutoId: null }], idx);
+    const lista = calcularListaCompras([{ comensales: 3, almuerzo: guiso, ensalada: chilena, vegetarianos: 0, sustitutoId: null }], idx);
     expect(item(lista, "mantequilla")?.gramos).toBe(42);
   });
 
   it("excluye los básicos de despensa aunque tengan cantidad", () => {
-    const lista = calcularListaCompras([{ comensales: 3, almuerzo: guiso, ensalada: chilena, sustitutoId: null }], idx);
+    const lista = calcularListaCompras([{ comensales: 3, almuerzo: guiso, ensalada: chilena, vegetarianos: 0, sustitutoId: null }], idx);
     expect(item(lista, "sal")).toBeUndefined();
     expect(item(lista, "aceite")).toBeUndefined();
   });
 
   it("muestra los opcionales sin cantidad", () => {
-    const lista = calcularListaCompras([{ comensales: 3, almuerzo: guiso, ensalada: chilena, sustitutoId: null }], idx);
+    const lista = calcularListaCompras([{ comensales: 3, almuerzo: guiso, ensalada: chilena, vegetarianos: 0, sustitutoId: null }], idx);
     expect(item(lista, "cilantro")).toMatchObject({ soloOpcional: true, texto: "al gusto" });
   });
 
-  it("agrega el sustituto de carne asignado", () => {
-    const lista = calcularListaCompras([{ comensales: 4, almuerzo: pino, ensalada: chilena, sustitutoId: "tofu" }], idx);
-    expect(item(lista, "tofu")?.gramos).toBe(120 * PORCIONES_SUSTITUTO);
+  it("calcula la carne para los no vegetarianos y el sustituto para los vegetarianos", () => {
+    const lista = calcularListaCompras([{ comensales: 4, vegetarianos: 1, almuerzo: pino, ensalada: chilena, sustitutoId: "tofu" }], idx);
+    expect(item(lista, "carne_molida")?.gramos).toBe(100 * 3);
+    expect(item(lista, "tofu")?.gramos).toBe(120 * 1);
+    // Los ingredientes sin carne siguen siendo para todos.
+    expect(item(lista, "tomate")?.gramos).toBe(100 * 4);
+  });
+
+  it("no compra carne si todos son vegetarianos, ni sustituto si no hay vegetarianos", () => {
+    const todos = calcularListaCompras([{ comensales: 2, vegetarianos: 2, almuerzo: pino, ensalada: chilena, sustitutoId: "tofu" }], idx);
+    expect(item(todos, "carne_molida")).toBeUndefined();
+    expect(item(todos, "tofu")?.gramos).toBe(240);
+    const ninguno = calcularListaCompras([{ comensales: 2, vegetarianos: 0, almuerzo: pino, ensalada: chilena, sustitutoId: "tofu" }], idx);
+    expect(item(ninguno, "tofu")).toBeUndefined();
+    expect(item(ninguno, "carne_molida")?.gramos).toBe(200);
+  });
+
+  it("no aplica el sustituto a almuerzos sin carne", () => {
+    const lista = calcularListaCompras([{ comensales: 3, vegetarianos: 1, almuerzo: guiso, ensalada: chilena, sustitutoId: null }], idx);
+    expect(item(lista, "lentejas")?.gramos).toBe(240);
+    expect(item(lista, "tofu")).toBeUndefined();
   });
 
   it("agrupa por pasillo en el orden indicado", () => {
     const lista = calcularListaCompras(
-      [{ comensales: 1, almuerzo: guiso, ensalada: chilena, sustitutoId: null }],
+      [{ comensales: 1, almuerzo: guiso, ensalada: chilena, vegetarianos: 0, sustitutoId: null }],
       idx,
       ["frutas_y_verduras", "lacteos_y_huevos", "abarrotes_despensa"],
     );

@@ -10,7 +10,7 @@ async function ContenidoNuevaReceta({ searchParams }: PageProps<"/catalogo/nuevo
   const catalogo = await cargarCatalogo();
 
   return (
-    <div className="space-y-5">
+    <div className="mx-auto max-w-2xl space-y-5">
       <Link href="/catalogo" className="text-sm font-medium text-acento">
         ← Catálogo
       </Link>

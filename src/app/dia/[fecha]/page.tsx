@@ -22,7 +22,7 @@ async function ContenidoVistaDia({ params }: PageProps<"/dia/[fecha]">) {
       </Link>
       <p className="text-sm font-medium uppercase tracking-wide text-suave">{textoFecha(fecha)}</p>
       {almuerzo && ensalada ? (
-        <DetalleDia almuerzo={almuerzo} ensalada={ensalada} sustitutoId={dia.sustitutoId} comensales={dia.comensales} catalogo={catalogo} />
+        <DetalleDia almuerzo={almuerzo} ensalada={ensalada} sustitutoId={dia.sustitutoId} comensales={dia.comensales} vegetarianos={dia.vegetarianos} catalogo={catalogo} />
       ) : (
         <p className="text-suave">Este día no tiene minuta.</p>
       )}

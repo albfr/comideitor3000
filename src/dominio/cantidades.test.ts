@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { aproximarUnidades, formatearGramos, gramosDeLinea, textoCantidad, textoLinea } from "./cantidades";
+import { aproximarUnidades, formatearGramos, gramosDeLinea, porcionesDeLinea, textoCantidad, textoLinea } from "./cantidades";
 import type { Ingrediente } from "./tipos";
 
 const tomate: Ingrediente = {
@@ -44,5 +44,14 @@ describe("cantidades", () => {
   it("convierte cucharadas a gramos", () => {
     expect(gramosDeLinea({ ingrediente: "aceite", cantidad: 2, unidad: "cucharada" }, aceite)).toBe(28);
     expect(() => gramosDeLinea({ ingrediente: "zapallo", cantidad: 1, unidad: "cucharada" }, zapallo)).toThrow();
+  });
+
+  it("da las porciones de carne solo a los no vegetarianos", () => {
+    const pollo: Ingrediente = { id: "pollo", nombre: "pollo", pasillo: "carnes_y_aves", grupo: "carne" };
+    const salmon: Ingrediente = { id: "salmon", nombre: "salmón", pasillo: "pescados_y_mariscos", grupo: "pescado_marisco" };
+    expect(porcionesDeLinea(pollo, 3, 1)).toBe(2);
+    expect(porcionesDeLinea(salmon, 3, 1)).toBe(2);
+    expect(porcionesDeLinea(pollo, 2, 5)).toBe(0);
+    expect(porcionesDeLinea(tomate, 3, 1)).toBe(3);
   });
 });

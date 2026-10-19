@@ -30,8 +30,10 @@ async function ContenidoVistaCatalogo() {
         </div>
       </header>
 
+      <div className="space-y-6 lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:items-start lg:gap-8 lg:space-y-0">
       <section className="space-y-4">
         <h2 className="text-lg font-semibold">Almuerzos ({almuerzos.length})</h2>
+        <div className="space-y-4 xl:grid xl:grid-cols-2 xl:gap-4 xl:space-y-0">
         {categorias_almuerzo.map((categoria) => {
           const lista = almuerzos.filter((a) => a.categoria === categoria.id);
           if (lista.length === 0) return null;
@@ -53,6 +55,7 @@ async function ContenidoVistaCatalogo() {
             </div>
           );
         })}
+        </div>
       </section>
 
       <section className="space-y-2">
@@ -68,6 +71,7 @@ async function ContenidoVistaCatalogo() {
           ))}
         </ul>
       </section>
+      </div>
 
       {process.env.APP_PASSWORD && (
         <form action={cerrarSesion} className="pt-4">

@@ -23,7 +23,7 @@ export function BarraNavegacion({ ruta }: { ruta: string | null }) {
 
   return (
     <header className="sticky top-0 z-20 border-b border-borde bg-fondo/95 backdrop-blur">
-      <nav className="mx-auto flex max-w-2xl items-center justify-between gap-1 px-4 py-2 sm:justify-start">
+      <nav className="mx-auto flex max-w-2xl items-center lg:max-w-6xl lg:px-8 justify-between gap-1 px-4 py-2 sm:justify-start">
         <Link href="/" className="mr-auto hidden text-base font-bold tracking-tight text-acento sm:inline">
           Comideitor3000
         </Link>

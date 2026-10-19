@@ -9,6 +9,7 @@ import { db } from "./db";
 import { dias, semanas } from "./esquema";
 
 export const COMENSALES_POR_DEFECTO = 3;
+export const VEGETARIANOS_POR_DEFECTO = 1;
 
 export type FilaDia = typeof dias.$inferSelect;
 export type FilaSemana = typeof semanas.$inferSelect;
@@ -99,7 +100,7 @@ export async function seleccionarPropuesta(inicio: string, indice: number, hoy: 
     ...futuros.map((d) =>
       db
         .insert(dias)
-        .values({ ...d, comensales: COMENSALES_POR_DEFECTO })
+        .values({ ...d, comensales: COMENSALES_POR_DEFECTO, vegetarianos: VEGETARIANOS_POR_DEFECTO })
         .onConflictDoUpdate({
           target: dias.fecha,
           set: { almuerzoId: d.almuerzoId, ensaladaId: d.ensaladaId, sustitutoId: d.sustitutoId },
@@ -121,11 +122,26 @@ export async function reordenarSemana(inicio: string, nuevoOrden: string[], hoy:
   if (primero) await db.batch([primero, ...resto]);
 }
 
-/** Suma o resta comensales a un día que aún no pasa, con un mínimo de 1. */
-export async function cambiarComensales(fecha: string, delta: number, hoy: string) {
+async function diaEditable(fecha: string, hoy: string): Promise<FilaDia> {
   if (fecha < hoy) throw new Error("No se pueden modificar días pasados");
   const dia = await obtenerDia(fecha);
   if (!dia) throw new Error("El día no tiene minuta");
+  return dia;
+}
+
+/** Suma o resta comensales a un día que aún no pasa, con un mínimo de 1. Los vegetarianos nunca superan a los comensales. */
+export async function cambiarComensales(fecha: string, delta: number, hoy: string) {
+  const dia = await diaEditable(fecha, hoy);
   const comensales = Math.max(1, dia.comensales + Math.sign(delta));
-  await db.update(dias).set({ comensales }).where(eq(dias.fecha, fecha));
+  await db
+    .update(dias)
+    .set({ comensales, vegetarianos: Math.min(dia.vegetarianos, comensales) })
+    .where(eq(dias.fecha, fecha));
+}
+
+/** Suma o resta comensales vegetarianos a un día que aún no pasa, entre 0 y el total de comensales. */
+export async function cambiarVegetarianos(fecha: string, delta: number, hoy: string) {
+  const dia = await diaEditable(fecha, hoy);
+  const vegetarianos = Math.min(dia.comensales, Math.max(0, dia.vegetarianos + Math.sign(delta)));
+  await db.update(dias).set({ vegetarianos }).where(eq(dias.fecha, fecha));
 }

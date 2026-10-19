@@ -47,6 +47,19 @@ body {
   color: var(--texto);
 }
 
+/* Tailwind deja el cursor por defecto en botones; aquí se muestra la mano en todo lo clicable.
+   Va en la capa base para que utilidades como cursor-grab sigan teniendo prioridad. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [role="tab"],
+  summary,
+  select:not(:disabled),
+  label:has(> input[type="checkbox"]) {
+    cursor: pointer;
+  }
+}
+
 /* Botón llamativo de propuestas de fin de semana. */
 @keyframes brillo {
   0% { background-position: 0% 50%; }
@@ -62,4 +75,106 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .boton-fiesta { animation: none; }
+}
+
+/* Alternativas de minuta: al pasar el mouse se elevan y aparece un borde degradado animado. */
+.alternativa {
+  position: relative;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    background-color 0.35s ease;
+}
+
+.alternativa::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  border-radius: inherit;
+  background: linear-gradient(110deg, #f97316, #ec4899, #8b5cf6, #f59e0b, #f97316);
+  background-size: 300% 300%;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.alternativa .titulo-alternativa {
+  transition: letter-spacing 0.35s ease;
+}
+
+@media (hover: hover) {
+  .alternativa:hover {
+    transform: translateY(-6px);
+    background-color: var(--acento-suave);
+    box-shadow: 0 22px 45px -18px rgb(236 72 153 / 0.45);
+  }
+
+  .alternativa:hover::before {
+    opacity: 1;
+    animation: brillo 4s ease infinite;
+  }
+
+  .alternativa:hover .titulo-alternativa {
+    background: linear-gradient(110deg, #f97316, #ec4899, #8b5cf6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 0.02em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alternativa,
+  .alternativa::before,
+  .alternativa .titulo-alternativa {
+    transition: none;
+    animation: none !important;
+  }
+
+  .alternativa:hover {
+    transform: none;
+  }
+}
+
+/* Ventana flotante: fondo oscurecido y difuminado, con una entrada suave. */
+.ventana-flotante::backdrop {
+  background: rgb(20 16 12 / 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.ventana-flotante[open] {
+  animation: ventana-aparece 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ventana-flotante[open]::backdrop {
+  animation: fondo-aparece 0.28s ease;
+}
+
+@keyframes ventana-aparece {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes fondo-aparece {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Mientras la ventana está abierta, la página de atrás no se desplaza. */
+body:has(.ventana-flotante[open]) {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ventana-flotante[open],
+  .ventana-flotante[open]::backdrop {
+    animation: none;
+  }
 }

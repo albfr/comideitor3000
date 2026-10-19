@@ -40,7 +40,7 @@ async function ContenidoVistaIngredientes({ searchParams }: PageProps<"/ingredie
   const consumo: DiaConsumo[] = filas.flatMap((f) => {
     const almuerzo = catalogo.almuerzos.get(f.almuerzoId);
     const ensalada = catalogo.ensaladas.get(f.ensaladaId);
-    return almuerzo && ensalada ? [{ comensales: f.comensales, almuerzo, ensalada, sustitutoId: f.sustitutoId }] : [];
+    return almuerzo && ensalada ? [{ comensales: f.comensales, vegetarianos: f.vegetarianos, almuerzo, ensalada, sustitutoId: f.sustitutoId }] : [];
   });
   const secciones = calcularListaCompras(consumo, catalogo, ORDEN_PASILLOS);
 
@@ -67,8 +67,9 @@ async function ContenidoVistaIngredientes({ searchParams }: PageProps<"/ingredie
           : `${consumo.length} ${consumo.length === 1 ? "día" : "días"} con minuta. Sal, aceite, vinagre y especias no se incluyen.`}
       </p>
 
+      <div className="space-y-5 lg:columns-2 lg:gap-5 lg:space-y-0 xl:columns-3">
       {secciones.map((s) => (
-        <section key={s.pasillo} className="overflow-hidden rounded-xl border border-borde bg-tarjeta">
+        <section key={s.pasillo} className="overflow-hidden rounded-xl border border-borde bg-tarjeta lg:mb-5 lg:break-inside-avoid">
           <h2 className="bg-acento-suave px-4 py-2 text-sm font-semibold text-acento">{nombrePasillo(s.pasillo)}</h2>
           <table className="w-full text-[15px]">
             <tbody>
@@ -82,6 +83,7 @@ async function ContenidoVistaIngredientes({ searchParams }: PageProps<"/ingredie
           </table>
         </section>
       ))}
+      </div>
     </div>
   );
 }

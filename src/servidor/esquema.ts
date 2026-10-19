@@ -66,4 +66,6 @@ export const dias = sqliteTable("dias", {
   ensaladaId: text("ensalada_id").notNull().references(() => recetas.id),
   sustitutoId: text("sustituto_id").references(() => ingredientes.id),
   comensales: integer("comensales").notNull().default(3),
+  /** Comensales que comen el sustituto de carne; nunca más que `comensales`. */
+  vegetarianos: integer("vegetarianos").notNull().default(1),
 });
