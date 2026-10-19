@@ -15,6 +15,13 @@
       "when": 1792360562610,
       "tag": "0001_vegetarianos",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1792378063653,
+      "tag": "0002_usuarios",
+      "breakpoints": true
     }
   ]
 }

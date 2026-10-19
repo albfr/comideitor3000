@@ -7,6 +7,7 @@ import { obtenerDias, obtenerSemana, tieneMinuta } from "@/servidor/minutas";
 import { nombrePasillo, ORDEN_PASILLOS } from "@/servidor/pasillos";
 import { Suspense } from "react";
 import Cargando from "@/app/loading";
+import { exigirUsuario } from "@/servidor/usuario";
 
 const RANGOS = [
   { id: "hoy", texto: "Hoy" },
@@ -19,10 +20,11 @@ type Rango = (typeof RANGOS)[number]["id"];
 /** Lista de ingredientes por rango de días, agrupada por pasillo (RF-13 a RF-16). */
 async function ContenidoVistaIngredientes({ searchParams }: PageProps<"/ingredientes">) {
   await connection();
+  const usuario = await exigirUsuario();
   const { rango: pedido } = await searchParams;
   const fecha = hoy();
   const inicioSiguiente = sumarDias(inicioSemana(fecha), 7);
-  const hayProxima = tieneMinuta(await obtenerSemana(inicioSiguiente));
+  const hayProxima = tieneMinuta(await obtenerSemana(usuario.id, inicioSiguiente));
   const disponibles = RANGOS.filter((r) => r.id !== "proxima" || hayProxima);
   const rango: Rango = disponibles.some((r) => r.id === pedido) ? (pedido as Rango) : "semana";
 
@@ -34,7 +36,7 @@ async function ContenidoVistaIngredientes({ searchParams }: PageProps<"/ingredie
   };
   const seleccion = fechas[rango];
   const [filas, catalogo] = await Promise.all([
-    obtenerDias(seleccion[0], seleccion.at(-1)!),
+    obtenerDias(usuario.id, seleccion[0], seleccion.at(-1)!),
     cargarCatalogo({ incluirEliminadas: true }),
   ]);
   const consumo: DiaConsumo[] = filas.flatMap((f) => {

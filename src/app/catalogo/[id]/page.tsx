@@ -7,8 +7,10 @@ import { ETIQUETA_DIFICULTAD, textoMinutos } from "@/componentes/formato";
 import { cargarCatalogo } from "@/servidor/catalogo";
 import { Suspense } from "react";
 import Cargando from "@/app/loading";
+import { exigirUsuario } from "@/servidor/usuario";
 
 async function ContenidoVistaReceta({ params }: PageProps<"/catalogo/[id]">) {
+  await exigirUsuario();
   const { id } = await params;
   const catalogo = await cargarCatalogo();
   const almuerzo = catalogo.almuerzos.get(id);

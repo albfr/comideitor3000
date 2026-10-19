@@ -1,24 +1,22 @@
 "use server";
 
 import { refresh } from "next/cache";
-import { cookies } from "next/headers";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { hoy } from "@/dominio/fechas";
 import { DIFICULTADES, DIFICULTADES_ENSALADA, GRUPOS, type Grupo, type Ingrediente, type LineaIngrediente } from "@/dominio/tipos";
 import { validarLineas } from "@/dominio/validarCatalogo";
+import { auth } from "@/servidor/auth";
 import { cargarCatalogo, crearId, eliminarReceta, guardarIngrediente, guardarReceta, idsDeRecetas } from "@/servidor/catalogo";
 import { cambiarComensales, cambiarVegetarianos, reordenarSemana, seleccionarPropuesta } from "@/servidor/minutas";
 import { IDS_PASILLOS } from "@/servidor/pasillos";
-import { COOKIE_SESION, contrasenaCorrecta, DURACION_SESION_SEGUNDOS, sesionValida, tokenDeSesion } from "@/servidor/sesion";
+import { exigirUsuario } from "@/servidor/usuario";
 
 export interface EstadoFormulario {
   errores: string[];
 }
 
-// Cada acción verifica la sesión: son alcanzables por POST aunque el proxy las cubra.
-async function exigirSesion() {
-  if (!sesionValida((await cookies()).get(COOKIE_SESION)?.value)) throw new Error("No autorizado");
-}
+// Cada acción obtiene al usuario con exigirUsuario(): son alcanzables por POST aunque el proxy las cubra.
 
 function texto(formData: FormData, campo: string): string {
   return String(formData.get(campo) ?? "").trim();
@@ -30,54 +28,41 @@ function numero(valor: string): number {
 
 // --- Sesión ---
 
-export async function iniciarSesion(_previo: EstadoFormulario, formData: FormData): Promise<EstadoFormulario> {
-  if (!process.env.APP_PASSWORD) return { errores: ["Falta configurar la variable de entorno APP_PASSWORD."] };
-  if (!contrasenaCorrecta(texto(formData, "contrasena"))) return { errores: ["Contraseña incorrecta."] };
-  (await cookies()).set(COOKIE_SESION, tokenDeSesion(process.env.APP_PASSWORD), {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    maxAge: DURACION_SESION_SEGUNDOS,
-    path: "/",
-  });
-  redirect("/");
-}
-
 export async function cerrarSesion() {
-  (await cookies()).delete(COOKIE_SESION);
+  await auth.api.signOut({ headers: await headers() });
   redirect("/login");
 }
 
-// --- Minuta ---
+// --- Minuta (por usuario) ---
 
 export async function elegirMinuta(formData: FormData) {
-  await exigirSesion();
-  await seleccionarPropuesta(texto(formData, "inicio"), Number(texto(formData, "indice")), hoy());
+  const usuario = await exigirUsuario();
+  await seleccionarPropuesta(usuario.id, texto(formData, "inicio"), Number(texto(formData, "indice")), hoy());
   redirect("/semana");
 }
 
 export async function reordenarDias(inicio: string, nuevoOrden: string[]) {
-  await exigirSesion();
-  await reordenarSemana(inicio, nuevoOrden, hoy());
+  const usuario = await exigirUsuario();
+  await reordenarSemana(usuario.id, inicio, nuevoOrden, hoy());
   refresh();
 }
 
 export async function cambiarComensalesDia(formData: FormData) {
-  await exigirSesion();
-  await cambiarComensales(texto(formData, "fecha"), Number(texto(formData, "delta")), hoy());
+  const usuario = await exigirUsuario();
+  await cambiarComensales(usuario.id, texto(formData, "fecha"), Number(texto(formData, "delta")), hoy());
   refresh();
 }
 
 export async function cambiarVegetarianosDia(formData: FormData) {
-  await exigirSesion();
-  await cambiarVegetarianos(texto(formData, "fecha"), Number(texto(formData, "delta")), hoy());
+  const usuario = await exigirUsuario();
+  await cambiarVegetarianos(usuario.id, texto(formData, "fecha"), Number(texto(formData, "delta")), hoy());
   refresh();
 }
 
-// --- Catálogo ---
+// --- Catálogo (compartido entre todos los usuarios) ---
 
 export async function guardarRecetaDesdeFormulario(_previo: EstadoFormulario, formData: FormData): Promise<EstadoFormulario> {
-  await exigirSesion();
+  await exigirUsuario();
   const tipo = texto(formData, "tipo") === "ensalada" ? "ensalada" : "almuerzo";
   const idExistente = texto(formData, "id");
   const nombre = texto(formData, "nombre");
@@ -131,13 +116,13 @@ export async function guardarRecetaDesdeFormulario(_previo: EstadoFormulario, fo
 }
 
 export async function eliminarRecetaDesdeFormulario(formData: FormData) {
-  await exigirSesion();
+  await exigirUsuario();
   await eliminarReceta(texto(formData, "id"));
   redirect("/catalogo");
 }
 
 export async function crearIngredienteDesdeFormulario(_previo: EstadoFormulario, formData: FormData): Promise<EstadoFormulario> {
-  await exigirSesion();
+  await exigirUsuario();
   const nombre = texto(formData, "nombre").toLowerCase();
   const pasillo = texto(formData, "pasillo");
   const grupo = texto(formData, "grupo");

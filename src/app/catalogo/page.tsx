@@ -5,11 +5,13 @@ import { ETIQUETA_DIFICULTAD, textoMinutos } from "@/componentes/formato";
 import { cargarCatalogo } from "@/servidor/catalogo";
 import { Suspense } from "react";
 import Cargando from "@/app/loading";
+import { exigirUsuario } from "@/servidor/usuario";
 
 const botonSecundario = "rounded-lg border border-borde bg-tarjeta px-3 py-2 text-sm font-semibold hover:border-acento";
 
 async function ContenidoVistaCatalogo() {
   await connection();
+  const usuario = await exigirUsuario();
   const catalogo = await cargarCatalogo();
   const { almuerzos, ensaladas, categorias_almuerzo } = catalogo.catalogo;
 
@@ -73,11 +75,12 @@ async function ContenidoVistaCatalogo() {
       </section>
       </div>
 
-      {process.env.APP_PASSWORD && (
-        <form action={cerrarSesion} className="pt-4">
-          <button className="text-sm text-suave underline">Cerrar sesión</button>
-        </form>
-      )}
+      <form action={cerrarSesion} className="flex flex-wrap items-center gap-2 border-t border-borde pt-4 text-sm text-suave">
+        <span>
+          Sesión iniciada como <span className="font-medium text-texto">{usuario.nombre}</span> ({usuario.email}).
+        </span>
+        <button className="underline hover:text-texto">Cerrar sesión</button>
+      </form>
     </div>
   );
 }

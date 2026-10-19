@@ -10,6 +10,7 @@ import { cargarCatalogo } from "@/servidor/catalogo";
 import { COMENSALES_POR_DEFECTO, obtenerPropuestas, obtenerSemana, tieneMinuta, VEGETARIANOS_POR_DEFECTO } from "@/servidor/minutas";
 import { Suspense } from "react";
 import Cargando from "@/app/loading";
+import { exigirUsuario } from "@/servidor/usuario";
 
 /**
  * Propuestas de minuta. Accesible sábado y domingo para la semana siguiente, o cualquier día
@@ -17,10 +18,11 @@ import Cargando from "@/app/loading";
  */
 async function ContenidoVistaPropuestas({ searchParams }: PageProps<"/propuestas">) {
   await connection();
+  const usuario = await exigirUsuario();
   const { semana: pedida } = await searchParams;
   const fecha = hoy();
   const inicioActual = inicioSemana(fecha);
-  const actualSinMinuta = !tieneMinuta(await obtenerSemana(inicioActual));
+  const actualSinMinuta = !tieneMinuta(await obtenerSemana(usuario.id, inicioActual));
 
   let objetivo: "actual" | "siguiente" | null = null;
   if (pedida === "actual" && actualSinMinuta) objetivo = "actual";
@@ -42,7 +44,7 @@ async function ContenidoVistaPropuestas({ searchParams }: PageProps<"/propuestas
   const fechas = objetivo === "actual" ? diasRestantes(fecha) : diasDeSemana(inicio);
   const catalogoGeneracion = await cargarCatalogo();
   const [resultado, catalogo] = await Promise.all([
-    obtenerPropuestas(inicio, fechas, catalogoGeneracion),
+    obtenerPropuestas(usuario.id, inicio, fechas, catalogoGeneracion),
     cargarCatalogo({ incluirEliminadas: true }),
   ]);
   const titulo = objetivo === "actual" ? "Minuta para lo que queda de la semana" : "Minuta de la próxima semana";

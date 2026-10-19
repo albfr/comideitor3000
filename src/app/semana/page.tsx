@@ -7,17 +7,19 @@ import { cargarCatalogo } from "@/servidor/catalogo";
 import { obtenerDias, obtenerSemana, tieneMinuta } from "@/servidor/minutas";
 import { Suspense } from "react";
 import Cargando from "@/app/loading";
+import { exigirUsuario } from "@/servidor/usuario";
 
 /** Vista bisemanal: semana actual y, si ya se eligió, la siguiente (RF-17). */
 async function ContenidoVistaBisemanal() {
   await connection();
+  const usuario = await exigirUsuario();
   const fecha = hoy();
   const inicio = inicioSemana(fecha);
   const inicioSiguiente = sumarDias(inicio, 7);
   const [actual, siguiente, filas, catalogo] = await Promise.all([
-    obtenerSemana(inicio),
-    obtenerSemana(inicioSiguiente),
-    obtenerDias(inicio, sumarDias(inicio, 13)),
+    obtenerSemana(usuario.id, inicio),
+    obtenerSemana(usuario.id, inicioSiguiente),
+    obtenerDias(usuario.id, inicio, sumarDias(inicio, 13)),
     cargarCatalogo({ incluirEliminadas: true }),
   ]);
   const porFecha = new Map(filas.map((f) => [f.fecha, f]));

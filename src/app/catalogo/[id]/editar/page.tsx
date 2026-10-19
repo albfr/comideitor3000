@@ -6,6 +6,7 @@ import type { LineaIngrediente } from "@/dominio/tipos";
 import { cargarCatalogo } from "@/servidor/catalogo";
 import { Suspense } from "react";
 import Cargando from "@/app/loading";
+import { exigirUsuario } from "@/servidor/usuario";
 
 function aFila(linea: LineaIngrediente): FilaFormulario {
   return linea.opcional
@@ -14,6 +15,7 @@ function aFila(linea: LineaIngrediente): FilaFormulario {
 }
 
 async function ContenidoEditarReceta({ params }: PageProps<"/catalogo/[id]/editar">) {
+  await exigirUsuario();
   const { id } = await params;
   const catalogo = await cargarCatalogo();
   const almuerzo = catalogo.almuerzos.get(id);

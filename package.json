@@ -10,7 +10,9 @@
     "test": "vitest run",
     "db:generar": "drizzle-kit generate",
     "db:migrar": "tsx --env-file-if-exists=.env.local scripts/migrar.ts",
-    "db:cargar": "tsx --env-file-if-exists=.env.local scripts/cargar-catalogo.ts"
+    "db:cargar": "tsx --env-file-if-exists=.env.local scripts/cargar-catalogo.ts",
+    "db:asignar-minutas": "tsx --env-file-if-exists=.env.local scripts/asignar-minutas.ts",
+    "auth:sesion-prueba": "tsx --env-file-if-exists=.env.local scripts/sesion-prueba.ts"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -18,6 +20,7 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@libsql/client": "^0.18.0",
     "@vercel/blob": "^2.8.2",
+    "better-auth": "^1.7.11",
     "date-fns": "^4.4.0",
     "date-fns-tz": "^3.2.0",
     "drizzle-orm": "^0.45.4",

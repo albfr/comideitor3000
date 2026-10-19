@@ -7,15 +7,17 @@ import { cargarCatalogo } from "@/servidor/catalogo";
 import { obtenerDia, obtenerSemana, tieneMinuta } from "@/servidor/minutas";
 import { Suspense } from "react";
 import Cargando from "@/app/loading";
+import { exigirUsuario } from "@/servidor/usuario";
 
 async function ContenidoVistaPrincipal() {
   await connection();
+  const usuario = await exigirUsuario();
   const fecha = hoy();
   const inicio = inicioSemana(fecha);
   const [semana, siguiente, dia, catalogo] = await Promise.all([
-    obtenerSemana(inicio),
-    obtenerSemana(sumarDias(inicio, 7)),
-    obtenerDia(fecha),
+    obtenerSemana(usuario.id, inicio),
+    obtenerSemana(usuario.id, sumarDias(inicio, 7)),
+    obtenerDia(usuario.id, fecha),
     cargarCatalogo({ incluirEliminadas: true }),
   ]);
   const almuerzo = dia && catalogo.almuerzos.get(dia.almuerzoId);

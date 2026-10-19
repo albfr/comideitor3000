@@ -79,8 +79,8 @@ Se asume que todas las recetas de almuerzo ingresadas al catálogo son nutricion
 - **RNF-07:** Todos los datos (catálogo, minutas, comensales, restricciones e historial) deben persistir entre sesiones y reinicios de la aplicación.
 
 ### Seguridad
-- **RNF-08:** La aplicación está pensada para un único usuario y no requiere gestión de cuentas ni roles.
-- **RNF-09:** Como la aplicación se publica en internet, el acceso debe estar protegido con contraseña y servirse por HTTPS.
+- **RNF-08:** La aplicación admite varios usuarios, que inician sesión con su cuenta de Google. Solo pueden entrar los emails autorizados (variable `EMAILS_PERMITIDOS`). La minuta semanal, las propuestas, los comensales y los comensales vegetarianos de cada día son propios de cada usuario; el catálogo es compartido y cualquier usuario puede modificarlo. No hay roles.
+- **RNF-09:** Como la aplicación se publica en internet, todas las vistas y acciones exigen una sesión válida y se sirven por HTTPS.
 
 ### Exactitud
 - **RNF-10:** "Hoy" y el inicio de cada semana deben calcularse según la zona horaria fija `America/Santiago`, independiente de la zona horaria del servidor. La semana comienza el lunes.
@@ -135,6 +135,7 @@ Precisiones:
 - Las reglas de días seguidos (categoría de almuerzo y repetición de ensaladas) también se aplican entre el domingo de una semana y el lunes de la siguiente.
 
 ## Stack tecnológico
+- **Autenticación:** Better Auth con Google.
 - **Framework:** Next.js con TypeScript (frontend y backend en un mismo proyecto).
 - **Base de datos:** Turso (SQLite / libSQL).
 - **Imágenes:** Vercel Blob.
@@ -169,26 +170,34 @@ npm run dev
 | `npm run db:generar` | Genera una migración en `drizzle/` después de cambiar `src/servidor/esquema.ts` |
 | `npm run db:migrar` | Aplica las migraciones |
 | `npm run db:cargar` | Carga o actualiza el catálogo desde `data/catalogo.json` y sube sus imágenes a Vercel Blob |
+| `npm run db:asignar-minutas -- <email>` | Asigna a esa cuenta las minutas creadas antes de que existieran usuarios (la cuenta debe haber iniciado sesión una vez) |
+| `npm run auth:sesion-prueba -- <email>` | Solo con base local: crea un usuario de prueba y muestra su cookie de sesión, para probar sin Google |
 
-Sin `APP_PASSWORD`, en desarrollo la aplicación queda abierta; en producción exige la variable.
+### Inicio de sesión con Google
+1. En [Google Cloud Console](https://console.cloud.google.com/apis/credentials) crea un *ID de cliente de OAuth* de tipo *Aplicación web*.
+2. Agrega como URI de redirección autorizada `http://localhost:3000/api/auth/callback/google` y, para producción, `https://<tu-dominio>/api/auth/callback/google`.
+3. Copia el ID y el secreto en `GOOGLE_CLIENT_ID` y `GOOGLE_CLIENT_SECRET` de `.env.local`, junto con `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL` y `EMAILS_PERMITIDOS` (ver `.env.example`).
+
+Sin `EMAILS_PERMITIDOS`, en desarrollo puede entrar cualquier cuenta de Google y en producción ninguna.
 
 ### Estructura
 - `src/dominio/`: lógica pura y probada (generador, reglas, cantidades, lista de compras, fechas). No depende de Next.js ni de la base de datos.
-- `src/servidor/`: base de datos (Drizzle + libSQL), carga del catálogo, minutas y sesión.
+- `src/servidor/`: base de datos (Drizzle + libSQL), carga del catálogo, minutas por usuario, autenticación (`auth.ts`, Better Auth) y acceso al usuario actual (`usuario.ts`).
 - `src/app/`: páginas y acciones de servidor. `src/componentes/`: componentes de interfaz.
-- `src/proxy.ts`: redirige a `/login` si no hay sesión.
+- `src/proxy.ts`: redirige a `/login` si no hay cookie de sesión. La validación completa ocurre en `exigirUsuario()`, en cada página y acción.
 
 ## Despliegue en Vercel
 
 1. Crear una base de datos en Turso (`turso db create comideitor3000`) y obtener su URL y un token (`turso db tokens create comideitor3000`).
 2. Crear un almacén de Vercel Blob en el proyecto de Vercel; esto agrega `BLOB_READ_WRITE_TOKEN`.
-3. Definir en Vercel las variables `APP_PASSWORD`, `TURSO_DATABASE_URL` y `TURSO_AUTH_TOKEN`.
+3. Definir en Vercel las variables `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL` (la URL pública con https), `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` y `EMAILS_PERMITIDOS`, y agregar la URI de redirección de producción en Google Cloud Console.
 4. Desde tu equipo, con esas mismas variables en `.env.local`, ejecutar `npm run db:migrar` y `npm run db:cargar`.
 5. Conectar el repositorio a Vercel y desplegar. Vercel sirve la aplicación por HTTPS.
 
 ## Decisiones provisorias del MVP
 - **Eliminar recetas:** es una eliminación lógica. La receta desaparece del catálogo y de las nuevas propuestas, pero las minutas que ya la usan la siguen mostrando.
 - **Reordenar:** solo dentro de la misma semana.
+- **Comensales por defecto:** al elegir una minuta, cada día parte con 3 comensales y 1 vegetariano para todos los usuarios; luego cada usuario los ajusta por día.
 - **Imágenes:** se cargan con `npm run db:cargar` (campo `imagen` de `data/catalogo.json`, ruta relativa a `data/`); desde la interfaz aún no se pueden subir (RF-30).
 - **Límite conocido:** si la semana actual se planifica después de elegir la siguiente, el generador no revisa la regla de días seguidos entre ese domingo y el lunes siguiente.
 

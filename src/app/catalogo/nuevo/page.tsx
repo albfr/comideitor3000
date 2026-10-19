@@ -3,8 +3,10 @@ import { FormularioReceta } from "@/componentes/FormularioReceta";
 import { cargarCatalogo } from "@/servidor/catalogo";
 import { Suspense } from "react";
 import Cargando from "@/app/loading";
+import { exigirUsuario } from "@/servidor/usuario";
 
 async function ContenidoNuevaReceta({ searchParams }: PageProps<"/catalogo/nuevo">) {
+  await exigirUsuario();
   const { tipo: pedido } = await searchParams;
   const tipo = pedido === "ensalada" ? "ensalada" : "almuerzo";
   const catalogo = await cargarCatalogo();

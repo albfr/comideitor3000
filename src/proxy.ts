@@ -1,13 +1,13 @@
+import { getSessionCookie } from "better-auth/cookies";
 import { NextResponse, type NextRequest } from "next/server";
-import { COOKIE_SESION, sesionValida } from "@/servidor/sesion";
 
+// Comprobación rápida: sin cookie de sesión se va a /login. La validación real de la sesión
+// (y de que el email esté autorizado) ocurre en exigirUsuario(), en cada página y acción.
 export function proxy(request: NextRequest) {
-  if (sesionValida(request.cookies.get(COOKIE_SESION)?.value)) return NextResponse.next();
-  const login = new URL("/login", request.url);
-  return NextResponse.redirect(login);
+  if (getSessionCookie(request)) return NextResponse.next();
+  return NextResponse.redirect(new URL("/login", request.url));
 }
 
 export const config = {
-  // Todo excepto la página de login y los archivos estáticos.
-  matcher: ["/((?!login|_next/static|_next/image|favicon.ico|plato-generico.svg).*)"],
+  matcher: ["/((?!login|api/auth|_next/static|_next/image|favicon.ico|plato-generico.svg).*)"],
 };

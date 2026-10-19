@@ -51,21 +51,91 @@ export const recetaIngredientes = sqliteTable(
   (t) => [primaryKey({ columns: [t.recetaId, t.orden] })],
 );
 
-/** Estado de cada semana: sus tres propuestas (generadas una sola vez) y cuál se eligió. */
-export const semanas = sqliteTable("semanas", {
-  inicio: text("inicio").primaryKey(),
-  propuestas: text("propuestas", { mode: "json" }).$type<DiaPlan[][]>(),
-  propuestasDesde: text("propuestas_desde"),
-  seleccionada: integer("seleccionada"),
+/**
+ * Dueño provisorio de las minutas creadas antes de que existieran usuarios. Se reasignan a una
+ * cuenta con `npm run db:asignar-minutas -- <email>`.
+ */
+export const SIN_USUARIO = "__sin_usuario__";
+
+/** Estado de cada semana de un usuario: sus tres propuestas (generadas una sola vez) y cuál eligió. */
+export const semanas = sqliteTable(
+  "semanas",
+  {
+    usuarioId: text("usuario_id").notNull(),
+    inicio: text("inicio").notNull(),
+    propuestas: text("propuestas", { mode: "json" }).$type<DiaPlan[][]>(),
+    propuestasDesde: text("propuestas_desde"),
+    seleccionada: integer("seleccionada"),
+  },
+  (t) => [primaryKey({ columns: [t.usuarioId, t.inicio] })],
+);
+
+/** Minuta oficial de un usuario: un almuerzo y una ensalada por fecha, con sus comensales. */
+export const dias = sqliteTable(
+  "dias",
+  {
+    usuarioId: text("usuario_id").notNull(),
+    fecha: text("fecha").notNull(),
+    almuerzoId: text("almuerzo_id").notNull().references(() => recetas.id),
+    ensaladaId: text("ensalada_id").notNull().references(() => recetas.id),
+    sustitutoId: text("sustituto_id").references(() => ingredientes.id),
+    comensales: integer("comensales").notNull().default(3),
+    /** Comensales que comen el sustituto de carne; nunca más que `comensales`. */
+    vegetarianos: integer("vegetarianos").notNull().default(1),
+  },
+  (t) => [primaryKey({ columns: [t.usuarioId, t.fecha] })],
+);
+
+// --- Tablas de Better Auth (inicio de sesión con Google) ---
+
+const fecha = (nombre: string) => integer(nombre, { mode: "timestamp_ms" });
+
+export const user = sqliteTable("user", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull().unique(),
+  emailVerified: integer("email_verified", { mode: "boolean" }).notNull().default(false),
+  image: text("image"),
+  createdAt: fecha("created_at").notNull(),
+  updatedAt: fecha("updated_at").notNull(),
 });
 
-/** Minuta oficial: un almuerzo y una ensalada por fecha. */
-export const dias = sqliteTable("dias", {
-  fecha: text("fecha").primaryKey(),
-  almuerzoId: text("almuerzo_id").notNull().references(() => recetas.id),
-  ensaladaId: text("ensalada_id").notNull().references(() => recetas.id),
-  sustitutoId: text("sustituto_id").references(() => ingredientes.id),
-  comensales: integer("comensales").notNull().default(3),
-  /** Comensales que comen el sustituto de carne; nunca más que `comensales`. */
-  vegetarianos: integer("vegetarianos").notNull().default(1),
+export const session = sqliteTable("session", {
+  id: text("id").primaryKey(),
+  expiresAt: fecha("expires_at").notNull(),
+  token: text("token").notNull().unique(),
+  createdAt: fecha("created_at").notNull(),
+  updatedAt: fecha("updated_at").notNull(),
+  ipAddress: text("ip_address"),
+  userAgent: text("user_agent"),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+});
+
+export const account = sqliteTable("account", {
+  id: text("id").primaryKey(),
+  accountId: text("account_id").notNull(),
+  providerId: text("provider_id").notNull(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  accessToken: text("access_token"),
+  refreshToken: text("refresh_token"),
+  idToken: text("id_token"),
+  accessTokenExpiresAt: fecha("access_token_expires_at"),
+  refreshTokenExpiresAt: fecha("refresh_token_expires_at"),
+  scope: text("scope"),
+  password: text("password"),
+  createdAt: fecha("created_at").notNull(),
+  updatedAt: fecha("updated_at").notNull(),
+});
+
+export const verification = sqliteTable("verification", {
+  id: text("id").primaryKey(),
+  identifier: text("identifier").notNull(),
+  value: text("value").notNull(),
+  expiresAt: fecha("expires_at").notNull(),
+  createdAt: fecha("created_at").notNull(),
+  updatedAt: fecha("updated_at").notNull(),
 });

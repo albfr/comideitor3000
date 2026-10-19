@@ -6,12 +6,14 @@ import { cargarCatalogo } from "@/servidor/catalogo";
 import { obtenerDia } from "@/servidor/minutas";
 import { Suspense } from "react";
 import Cargando from "@/app/loading";
+import { exigirUsuario } from "@/servidor/usuario";
 
 /** Detalle del almuerzo y la ensalada de cualquier día planificado (RF-19). */
 async function ContenidoVistaDia({ params }: PageProps<"/dia/[fecha]">) {
+  const usuario = await exigirUsuario();
   const { fecha } = await params;
   if (!/^\d{4}-\d{2}-\d{2}$/.test(fecha)) notFound();
-  const [dia, catalogo] = await Promise.all([obtenerDia(fecha), cargarCatalogo({ incluirEliminadas: true })]);
+  const [dia, catalogo] = await Promise.all([obtenerDia(usuario.id, fecha), cargarCatalogo({ incluirEliminadas: true })]);
   const almuerzo = dia && catalogo.almuerzos.get(dia.almuerzoId);
   const ensalada = dia && catalogo.ensaladas.get(dia.ensaladaId);
 

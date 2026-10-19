@@ -3,8 +3,10 @@ import { FormularioIngrediente } from "@/componentes/FormularioIngrediente";
 import { PASILLOS } from "@/servidor/pasillos";
 import { Suspense } from "react";
 import Cargando from "@/app/loading";
+import { exigirUsuario } from "@/servidor/usuario";
 
 async function ContenidoNuevoIngrediente({ searchParams }: PageProps<"/catalogo/ingredientes/nuevo">) {
+  await exigirUsuario();
   const { volver: pedido } = await searchParams;
   const volver = typeof pedido === "string" && pedido.startsWith("/catalogo") ? pedido : "/catalogo";
   return (
